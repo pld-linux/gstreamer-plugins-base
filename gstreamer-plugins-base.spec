@@ -23,6 +23,8 @@ BuildRequires:	automake
 BuildRequires:	glib2-devel >= 1:2.6.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.2.0
+BuildRequires:	gtk-doc >= 1.3
+BuildRequires:	liboil-devel >= 0.3.2
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 ##
@@ -35,27 +37,22 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	freetype-devel >= 2.1.2
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.0.4}
 BuildRequires:	libogg-devel >= 2:1.0
-BuildRequires:	liboil-devel >= 0.3.2
 BuildRequires:	libtheora-devel >= 1.0-0.alpha3.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.2.0}
 BuildRequires:	libvorbis-devel >= 1:1.0
-BuildRequires:	rpmbuild(macros) >= 1.197
+BuildRequires:	rpmbuild(macros) >= 1.98
 Requires:	gstreamer >= %{gst_req_ver}
 Obsoletes:	gstreamer-interfaces
 Obsoletes:	gstreamer-kio
 Obsoletes:	gstreamer-media-info
 Obsoletes:	gstreamer-misc
-Obsoletes:	gstreamer-mixer
-Obsoletes:	gstreamer-navigation
 Obsoletes:	gstreamer-oneton
 Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
 Obsoletes:	gstreamer-qcam
 Obsoletes:	gstreamer-quicktime
-Obsoletes:	gstreamer-rtp
 Obsoletes:	gstreamer-tcp
 Obsoletes:	gstreamer-tuner
-Obsoletes:	gstreamer-udp
 Obsoletes:	gstreamer-v4l
 Obsoletes:	gstreamer-v4l2
 Obsoletes:	gstreamer-vbidec
@@ -124,23 +121,26 @@ Input and output plugin for the ALSA soundcard driver architecture.
 Wtyczka wej¶cia i wyj¶cia ze sterowników d¼wiêkowych architektury ALSA
 do GStreamera.
 
-%package -n gstreamer-audio-effects
-Summary:	GStreamer audio effects plugins
-Summary(pl):	Wtyczki efektów d¼wiêkowych do GStreamera
+%package -n gstreamer-audio-effects-base
+Summary:	GStreamer base audio effects plugins
+Summary(pl):	Podstawowe wtyczki efektów d¼wiêkowych do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
+Obsoletes:	gstreamer-audio-effects
 
-%description -n gstreamer-audio-effects
-GStreamer audio effects plugins.
+%description -n gstreamer-audio-effects-base
+GStreamer base audio effects plugins.
 
-%description -n gstreamer-audio-effects -l pl
-Wtyczki efektów d¼wiêkowych do GStreamera.
+%description -n gstreamer-audio-effects-base -l pl
+Podstawowe wtyczki efektów d¼wiêkowych do GStreamera.
 
 %package -n gstreamer-cdparanoia
 Summary:	GStreamer plugin for CD audio input using CDParanoia IV
 Summary(pl):	Wtyczka do GStreamera odtwarzaj±ca p³yty CD-Audio przy u¿yciu CDParanoia IV
 Group:		Libraries
-Requires:	gstreamer >= %{gst_req_ver}
+#Requires:	gstreamer >= %{gst_req_ver}
+# for locales
+Requires:	%{name} = %{version}-%{release}
 
 %description -n gstreamer-cdparanoia
 Plugin for ripping audio tracks using cdparanoia under GStreamer.
@@ -153,7 +153,9 @@ cdparanoia.
 Summary:	GStreamer plugins for GNOME VFS input and output
 Summary(pl):	Wtyczki wej¶cia i wyj¶cia GNOME VFS do GStreamera
 Group:		Libraries
-Requires:	gstreamer >= %{gst_req_ver}
+#Requires:	gstreamer >= %{gst_req_ver}
+# for locales
+Requires:	%{name} = %{version}-%{release}
 
 %description -n gstreamer-gnomevfs
 Plugins for reading and writing through GNOME VFS.
@@ -201,7 +203,9 @@ Wtyczka Ogg Theora do GStreamera.
 Summary:	GStreamer plugin for encoding and decoding Ogg Vorbis audio files
 Summary(pl):	Wtyczki do GStreamera koduj±ce i dekoduj±ce pliki d¼wiêkowe Ogg Vorbis
 Group:		Libraries
-Requires:	gstreamer >= %{gst_req_ver}
+#Requires:	gstreamer >= %{gst_req_ver}
+# for locales in ogg module
+Requires:	%{name} = %{version}-%{release}
 
 %description -n gstreamer-vorbis
 Plugins for creating and playing Ogg Vorbis audio files.
@@ -249,7 +253,9 @@ Wtyczka wyj¶cia obrazu Xvideo dla GStreamera.
 	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
 	--disable-static \
-	--enable-cdparanoia
+	--enable-cdparanoia \
+	--enable-gtk-doc \
+	--with-html-dir=%{_gtkdocdir}
 
 %{__make}
 
@@ -296,6 +302,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
 %attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
 %{_mandir}/man1/gst-visualise-*.1*
+%{_gtkdocdir}/gst-plugins-base-plugins-*
 
 %files devel
 %defattr(644,root,root,755)
@@ -322,6 +329,7 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
 %{_pkgconfigdir}/gstreamer-plugins-base-*.pc
+%{_gtkdocdir}/gst-plugins-base-libs-*
 
 ##
 ## Plugins
@@ -331,7 +339,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgstalsa.so
 
-%files -n gstreamer-audio-effects
+%files -n gstreamer-audio-effects-base
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgstadder.so
 %attr(755,root,root) %{gstlibdir}/libgstaudioresample.so
