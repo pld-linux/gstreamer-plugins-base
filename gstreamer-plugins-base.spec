@@ -18,6 +18,7 @@ Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
 # Source0-md5:	303fc88af1eed2ec2fd094bee98113d2
 Patch0:		%{name}-bashish.patch
+URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 1:2.6.0
