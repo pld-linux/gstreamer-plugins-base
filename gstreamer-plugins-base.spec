@@ -51,7 +51,6 @@ Obsoletes:	gstreamer-oneton
 Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
 Obsoletes:	gstreamer-qcam
-Obsoletes:	gstreamer-quicktime
 Obsoletes:	gstreamer-tcp
 Obsoletes:	gstreamer-tuner
 Obsoletes:	gstreamer-v4l
