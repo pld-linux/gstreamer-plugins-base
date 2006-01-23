@@ -11,12 +11,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl):	Podstawowe wtyczki do ¶rodowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.1
+Version:	0.10.2
 Release:	0.1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	303fc88af1eed2ec2fd094bee98113d2
+# Source0-md5:	08b1f541e81baa67aeab6df90cfe61d5
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
@@ -253,7 +253,6 @@ Wtyczka wyj¶cia obrazu Xvideo dla GStreamera.
 	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
 	--disable-static \
-	--enable-cdparanoia \
 	--enable-gtk-doc \
 	--with-html-dir=%{_gtkdocdir}
 
@@ -281,6 +280,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README RELEASE
 %attr(755,root,root) %{_bindir}/gst-visualise-*
 %attr(755,root,root) %{_libdir}/libgstaudio-*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libgstcdda-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstinterfaces-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstnetbuffer-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstriff-*.so.*.*.*
@@ -307,6 +307,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgstaudio-*.so
+%attr(755,root,root) %{_libdir}/libgstcdda-*.so
 %attr(755,root,root) %{_libdir}/libgstinterfaces-*.so
 %attr(755,root,root) %{_libdir}/libgstnetbuffer-*.so
 %attr(755,root,root) %{_libdir}/libgstriff-*.so
@@ -314,6 +315,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgsttag-*.so
 %attr(755,root,root) %{_libdir}/libgstvideo-*.so
 %{_libdir}/libgstaudio-*.la
+%{_libdir}/libgstcdda-*.la
 %{_libdir}/libgstinterfaces-*.la
 %{_libdir}/libgstnetbuffer-*.la
 %{_libdir}/libgstriff-*.la
@@ -321,6 +323,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgsttag-*.la
 %{_libdir}/libgstvideo-*.la
 %{gstincludedir}/gst/audio
+%{gstincludedir}/gst/cdda
 %{gstincludedir}/gst/floatcast
 %{gstincludedir}/gst/interfaces
 %{gstincludedir}/gst/netbuffer
@@ -345,9 +348,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudioresample.so
 %attr(755,root,root) %{gstlibdir}/libgstvolume.so
 
-#%files -n gstreamer-cdparanoia
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{gstlibdir}/libgstcdparanoia.so
+%files -n gstreamer-cdparanoia
+%defattr(644,root,root,755)
+%attr(755,root,root) %{gstlibdir}/libgstcdparanoia.so
 
 %if %{with gnomevfs}
 %files -n gstreamer-gnomevfs
