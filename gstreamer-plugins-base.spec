@@ -31,7 +31,6 @@ BuildRequires:	pkgconfig
 ##
 ## plugins
 ##
-# libX11, libXv, libXext
 BuildRequires:	alsa-lib-devel >= 0.9.1
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	freetype-devel >= 2.1.2
