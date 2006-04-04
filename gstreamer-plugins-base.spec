@@ -1,4 +1,3 @@
-# TODO: recheck Obsoletes set after finishing gstreamer-plugins-{good,bad,ugly}
 #
 # Conditional build:
 %bcond_without	gnomevfs	# don't build gnome-vfs plugin
