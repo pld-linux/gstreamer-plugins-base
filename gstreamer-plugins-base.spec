@@ -44,23 +44,46 @@ BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
 Requires:	gstreamer >= %{gst_req_ver}
+Obsoletes:	gstreamer-artsd
+Obsoletes:	gstreamer-audiofile
+Obsoletes:	gstreamer-audiosink-polypaudio
+Obsoletes:	gstreamer-avi
+Obsoletes:	gstreamer-cdaudio
+Obsoletes:	gstreamer-cdplayer
+Obsoletes:	gstreamer-colorspace
+Obsoletes:	gstreamer-dirac
+Obsoletes:	gstreamer-festival
+Obsoletes:	gstreamer-gdkpixbuf
 Obsoletes:	gstreamer-interfaces
+Obsoletes:	gstreamer-interleave
+Obsoletes:	gstreamer-jack
 Obsoletes:	gstreamer-kio
+Obsoletes:	gstreamer-libdvdnav
+Obsoletes:	gstreamer-libfame
 Obsoletes:	gstreamer-media-info
+Obsoletes:	gstreamer-mikmod
 Obsoletes:	gstreamer-misc
+Obsoletes:	gstreamer-mjpegtools
+Obsoletes:	gstreamer-musicbrainz
+Obsoletes:	gstreamer-nas
 Obsoletes:	gstreamer-oneton
 Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
 Obsoletes:	gstreamer-qcam
+Obsoletes:	gstreamer-snapshot
+Obsoletes:	gstreamer-sndfile
 Obsoletes:	gstreamer-tcp
 Obsoletes:	gstreamer-tuner
 Obsoletes:	gstreamer-v4l
 Obsoletes:	gstreamer-v4l2
 Obsoletes:	gstreamer-vbidec
+Obsoletes:	gstreamer-vcd
 Obsoletes:	gstreamer-videosink-xv
 Obsoletes:	gstreamer-videotest
+Obsoletes:	gstreamer-xine
 Obsoletes:	gstreamer-xoverlay
 Obsoletes:	gstreamer-yuv4mjpeg
+Obsoletes:	gtk-loaders-gstreamer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		gstlibdir 	%{_libdir}/gstreamer-%{gst_major_ver}
