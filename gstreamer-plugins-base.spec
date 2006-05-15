@@ -31,6 +31,8 @@ BuildRequires:	pkgconfig
 ##
 ## plugins
 ##
+# libX11, libXv, libXext
+BuildRequires:	XFree86-devel
 BuildRequires:	alsa-lib-devel >= 0.9.1
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	freetype-devel >= 2.1.2
@@ -40,9 +42,6 @@ BuildRequires:	libtheora-devel >= 1.0-0.alpha3.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	rpmbuild(macros) >= 1.98
-BuildRequires:	xorg-lib-libX11-devel
-BuildRequires:	xorg-lib-libXext-devel
-BuildRequires:	xorg-lib-libXv-devel
 Requires:	gstreamer >= %{gst_req_ver}
 Obsoletes:	gstreamer-artsd
 Obsoletes:	gstreamer-audiofile
