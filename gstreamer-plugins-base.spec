@@ -74,7 +74,6 @@ Obsoletes:	gstreamer-sndfile
 Obsoletes:	gstreamer-tcp
 Obsoletes:	gstreamer-tuner
 Obsoletes:	gstreamer-v4l
-Obsoletes:	gstreamer-v4l2
 Obsoletes:	gstreamer-vbidec
 Obsoletes:	gstreamer-vcd
 Obsoletes:	gstreamer-videosink-xv
