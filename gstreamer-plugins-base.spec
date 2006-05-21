@@ -53,7 +53,6 @@ Obsoletes:	gstreamer-cdplayer
 Obsoletes:	gstreamer-colorspace
 Obsoletes:	gstreamer-dirac
 Obsoletes:	gstreamer-festival
-Obsoletes:	gstreamer-gdkpixbuf
 Obsoletes:	gstreamer-interfaces
 Obsoletes:	gstreamer-interleave
 Obsoletes:	gstreamer-jack
