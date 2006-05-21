@@ -63,7 +63,6 @@ Obsoletes:	gstreamer-media-info
 Obsoletes:	gstreamer-mikmod
 Obsoletes:	gstreamer-misc
 Obsoletes:	gstreamer-mjpegtools
-Obsoletes:	gstreamer-musicbrainz
 Obsoletes:	gstreamer-nas
 Obsoletes:	gstreamer-oneton
 Obsoletes:	gstreamer-play
