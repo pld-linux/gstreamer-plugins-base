@@ -44,6 +44,7 @@ BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	rpmbuild(macros) >= 1.98
 Requires:	gstreamer >= %{gst_req_ver}
 Obsoletes:	gstreamer-artsd
+Obsoletes:	gstreamer-audio-effects
 Obsoletes:	gstreamer-audiofile
 Obsoletes:	gstreamer-audiosink-polypaudio
 Obsoletes:	gstreamer-avi
