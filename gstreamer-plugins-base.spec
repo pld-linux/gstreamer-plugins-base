@@ -28,6 +28,7 @@ BuildRequires:	gtk-doc >= 1.3
 BuildRequires:	liboil-devel >= 0.3.6
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
+BuildRequires:	python-PyXML
 ##
 ## plugins
 ##
