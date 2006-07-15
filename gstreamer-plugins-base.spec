@@ -271,7 +271,7 @@ Wtyczka wyj¶cia obrazu Xvideo dla GStreamera.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-LDFLAGS="%{rpmldflags} -Wl,--as-needed"
+#LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
