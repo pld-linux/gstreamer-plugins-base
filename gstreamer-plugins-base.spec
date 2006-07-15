@@ -5,13 +5,13 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.6.1
+%define		gst_req_ver	0.10.8
 #
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl):	Podstawowe wtyczki do ¶rodowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
 Version:	0.10.8
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
@@ -20,10 +20,10 @@ Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	glib2-devel >= 1:2.6.0
+BuildRequires:	glib2-devel >= 1:2.12.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gtk+2-devel >= 2:2.2.0
-BuildRequires:	gtk-doc >= 1.3
+BuildRequires:	gtk+2-devel >= 2:2.10.0
+BuildRequires:	gtk-doc >= 1.6
 BuildRequires:	liboil-devel >= 0.3.6
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
@@ -31,10 +31,10 @@ BuildRequires:	python-PyXML
 ##
 ## plugins
 ##
-BuildRequires:	alsa-lib-devel >= 0.9.1
+BuildRequires:	alsa-lib-devel >= 1.0.11
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	freetype-devel >= 2.1.2
-%{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.0.4}
+%{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.3}
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libtheora-devel >= 1.0-0.alpha3.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
@@ -271,6 +271,7 @@ Wtyczka wyj¶cia obrazu Xvideo dla GStreamera.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
+LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
