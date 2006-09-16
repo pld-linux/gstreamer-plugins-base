@@ -5,17 +5,17 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.9
+%define		gst_req_ver	0.10.9.1
 #
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl):	Podstawowe wtyczki do ¶rodowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.9
+Version:	0.10.10
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	cf0aa58f066c3a0e0258909b3ad9d4ad
+# Source0-md5:	7a51a3fabebe5f77235926ad65ba9593
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
@@ -316,6 +316,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstdecodebin.so
 %attr(755,root,root) %{gstlibdir}/libgstffmpegcolorspace.so
+%attr(755,root,root) %{gstlibdir}/libgstgdp.so
 %attr(755,root,root) %{gstlibdir}/libgstplaybin.so
 %attr(755,root,root) %{gstlibdir}/libgstsubparse.so
 %attr(755,root,root) %{gstlibdir}/libgsttcp.so
