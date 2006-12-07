@@ -5,17 +5,17 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.9.1
+%define		gst_req_ver	0.10.10.1
 #
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl):	Podstawowe wtyczki do ¶rodowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.10
-Release:	2
+Version:	0.10.11
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	7a51a3fabebe5f77235926ad65ba9593
+# Source0-md5:	2e78ff25635b31d948def7c2b2d79054
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
@@ -271,7 +271,6 @@ Wtyczka wyj¶cia obrazu Xvideo dla GStreamera.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-#LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
@@ -315,6 +314,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstdecodebin.so
+%attr(755,root,root) %{gstlibdir}/libgstdecodebin2.so
 %attr(755,root,root) %{gstlibdir}/libgstffmpegcolorspace.so
 %attr(755,root,root) %{gstlibdir}/libgstgdp.so
 %attr(755,root,root) %{gstlibdir}/libgstplaybin.so
@@ -326,7 +326,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
 %attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
 %{_mandir}/man1/gst-visualise-*.1*
-%{_gtkdocdir}/gst-plugins-base-plugins-*
 
 %files devel
 %defattr(644,root,root,755)
