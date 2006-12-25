@@ -24,7 +24,7 @@ BuildRequires:	glib2-devel >= 1:2.12.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.10.0
 BuildRequires:	gtk-doc >= 1.6
-BuildRequires:	liboil-devel >= 0.3.8
+BuildRequires:	liboil-devel >= 1:0.3.8
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-PyXML
