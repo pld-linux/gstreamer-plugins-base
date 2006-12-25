@@ -49,14 +49,12 @@ Obsoletes:	gstreamer-audio-effects
 Obsoletes:	gstreamer-audiofile
 Obsoletes:	gstreamer-audiosink-polypaudio
 Obsoletes:	gstreamer-avi
-Obsoletes:	gstreamer-cdaudio
 Obsoletes:	gstreamer-cdplayer
 Obsoletes:	gstreamer-colorspace
 Obsoletes:	gstreamer-dirac
 Obsoletes:	gstreamer-festival
 Obsoletes:	gstreamer-interfaces
 Obsoletes:	gstreamer-interleave
-Obsoletes:	gstreamer-jack
 Obsoletes:	gstreamer-kio
 Obsoletes:	gstreamer-libdvdnav
 Obsoletes:	gstreamer-libfame
