@@ -8,7 +8,7 @@
 %define		gst_req_ver	0.10.10.1
 #
 Summary:	GStreamer Streaming-media framework base plugins
-Summary(pl.UTF-8):   Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
+Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
 Version:	0.10.11
 Release:	1
@@ -102,7 +102,7 @@ nowych typów danych lub możliwości obróbki.
 
 %package devel
 Summary:	Include files for GStreamer streaming-media framework plugins
-Summary(pl.UTF-8):   Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
+Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	gstreamer-devel >= %{gst_req_ver}
@@ -127,7 +127,7 @@ Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer.
 
 %package -n gstreamer-audiosink-alsa
 Summary:	GStreamer plugins for the ALSA sound architecture
-Summary(pl.UTF-8):   Wtyczki GStreamera do obsługi architektury ALSA
+Summary(pl.UTF-8):	Wtyczki GStreamera do obsługi architektury ALSA
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Provides:	gstreamer-audiosink = %{version}
@@ -142,7 +142,7 @@ do GStreamera.
 
 %package -n gstreamer-audio-effects-base
 Summary:	GStreamer base audio effects plugins
-Summary(pl.UTF-8):   Podstawowe wtyczki efektów dźwiękowych do GStreamera
+Summary(pl.UTF-8):	Podstawowe wtyczki efektów dźwiękowych do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	gstreamer-audio-effects
@@ -155,7 +155,7 @@ Podstawowe wtyczki efektów dźwiękowych do GStreamera.
 
 %package -n gstreamer-cdparanoia
 Summary:	GStreamer plugin for CD audio input using CDParanoia IV
-Summary(pl.UTF-8):   Wtyczka do GStreamera odtwarzająca płyty CD-Audio przy użyciu CDParanoia IV
+Summary(pl.UTF-8):	Wtyczka do GStreamera odtwarzająca płyty CD-Audio przy użyciu CDParanoia IV
 Group:		Libraries
 #Requires:	gstreamer >= %{gst_req_ver}
 # for locales
@@ -170,7 +170,7 @@ cdparanoia.
 
 %package -n gstreamer-gnomevfs
 Summary:	GStreamer plugins for GNOME VFS input and output
-Summary(pl.UTF-8):   Wtyczki wejścia i wyjścia GNOME VFS do GStreamera
+Summary(pl.UTF-8):	Wtyczki wejścia i wyjścia GNOME VFS do GStreamera
 Group:		Libraries
 #Requires:	gstreamer >= %{gst_req_ver}
 # for locales
@@ -184,7 +184,7 @@ Wtyczki do czytania i zapisywania poprzez GNOME VFS.
 
 %package -n gstreamer-libvisual
 Summary:	GStreamer libvisual plugin
-Summary(pl.UTF-8):   Wtyczka libvisual do GStreamera
+Summary(pl.UTF-8):	Wtyczka libvisual do GStreamera
 Group:		Libraries
 Requires:	gstreamer >= %{gst_req_ver}
 
@@ -196,7 +196,7 @@ Wtyczka libvisual do GStreamera.
 
 %package -n gstreamer-pango
 Summary:	GStreamer pango plugins
-Summary(pl.UTF-8):   Wtyczki pango do GStreamera
+Summary(pl.UTF-8):	Wtyczki pango do GStreamera
 Group:		Libraries
 Requires:	gstreamer >= %{gst_req_ver}
 
@@ -208,7 +208,7 @@ Ten pakiet zawiera wtyczki textoverlay i timeoverlay do GStreamera.
 
 %package -n gstreamer-theora
 Summary:	GStreamer Ogg Theora plugin
-Summary(pl.UTF-8):   Wtyczka Ogg Theora do GStreamera
+Summary(pl.UTF-8):	Wtyczka Ogg Theora do GStreamera
 Group:		Libraries
 Requires:	gstreamer >= %{gst_req_ver}
 
@@ -220,7 +220,7 @@ Wtyczka Ogg Theora do GStreamera.
 
 %package -n gstreamer-vorbis
 Summary:	GStreamer plugin for encoding and decoding Ogg Vorbis audio files
-Summary(pl.UTF-8):   Wtyczki do GStreamera kodujące i dekodujące pliki dźwiękowe Ogg Vorbis
+Summary(pl.UTF-8):	Wtyczki do GStreamera kodujące i dekodujące pliki dźwiękowe Ogg Vorbis
 Group:		Libraries
 #Requires:	gstreamer >= %{gst_req_ver}
 # for locales in ogg module
@@ -234,7 +234,7 @@ Wtyczki do tworzenia i odtwarzania plików dźwiękowych Ogg Vorbis.
 
 %package -n gstreamer-imagesink-x
 Summary:	GStreamer XFree86/X.org output plugin
-Summary(pl.UTF-8):   Wtyczka wyjścia obrazu XFree86/X.org dla GStreamera
+Summary(pl.UTF-8):	Wtyczka wyjścia obrazu XFree86/X.org dla GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Provides:	gstreamer-videosink = %{version}
@@ -247,7 +247,7 @@ Standardowa wtyczka wyjścia obrazu XFree86/X.org dla GStreamera.
 
 %package -n gstreamer-imagesink-xv
 Summary:	GStreamer Xvideo output plugin
-Summary(pl.UTF-8):   Wtyczka wyjścia obrazu Xvideo dla GStreamera
+Summary(pl.UTF-8):	Wtyczka wyjścia obrazu Xvideo dla GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Provides:	gstreamer-videosink = %{version}
