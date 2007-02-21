@@ -5,19 +5,18 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.6
+%define		gst_req_ver	0.10.11
 #
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl):	Podstawowe wtyczki do ¶rodowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.7
-Release:	3
+Version:	0.10.11
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	21ec9c7ac4b02de019a6d8e8c2aaa2a3
+# Source0-md5:	2e78ff25635b31d948def7c2b2d79054
 Patch0:		%{name}-bashish.patch
-Patch1:		%{name}-libvisual.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -25,7 +24,7 @@ BuildRequires:	glib2-devel >= 1:2.6.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.2.0
 BuildRequires:	gtk-doc >= 1.3
-BuildRequires:	liboil-devel >= 1:0.3.6
+BuildRequires:	liboil-devel >= 1:0.3.8
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 ##
@@ -48,7 +47,6 @@ Obsoletes:	gstreamer-audio-effects
 Obsoletes:	gstreamer-audiofile
 Obsoletes:	gstreamer-audiosink-polypaudio
 Obsoletes:	gstreamer-avi
-Obsoletes:	gstreamer-cdaudio
 Obsoletes:	gstreamer-cdplayer
 Obsoletes:	gstreamer-colorspace
 Obsoletes:	gstreamer-dirac
@@ -56,14 +54,12 @@ Obsoletes:	gstreamer-festival
 Obsoletes:	gstreamer-gdkpixbuf
 Obsoletes:	gstreamer-interfaces
 Obsoletes:	gstreamer-interleave
-Obsoletes:	gstreamer-jack
 Obsoletes:	gstreamer-kio
 Obsoletes:	gstreamer-libdvdnav
 Obsoletes:	gstreamer-libfame
 Obsoletes:	gstreamer-media-info
 Obsoletes:	gstreamer-mikmod
 Obsoletes:	gstreamer-misc
-Obsoletes:	gstreamer-mjpegtools
 Obsoletes:	gstreamer-musicbrainz
 Obsoletes:	gstreamer-nas
 Obsoletes:	gstreamer-oneton
@@ -264,7 +260,6 @@ Wtyczka wyj¶cia obrazu Xvideo dla GStreamera.
 %prep
 %setup -q -n %{gstname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
