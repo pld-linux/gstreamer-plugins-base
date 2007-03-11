@@ -5,17 +5,17 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.11
+%define		gst_req_ver	0.10.12
 #
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl):	Podstawowe wtyczki do ¶rodowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.11
+Version:	0.10.12
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	2e78ff25635b31d948def7c2b2d79054
+# Source0-md5:	0ee35455a4eb507bcfbfcd44d9e15d1e
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
@@ -301,6 +301,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstcdda-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstinterfaces-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstnetbuffer-*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libgstpbutils-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstriff-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstrtp-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgsttag-*.so.*.*.*
@@ -310,7 +311,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstdecodebin.so
+%attr(755,root,root) %{gstlibdir}/libgstdecodebin2.so
 %attr(755,root,root) %{gstlibdir}/libgstffmpegcolorspace.so
+%attr(755,root,root) %{gstlibdir}/libgstgdp.so
 %attr(755,root,root) %{gstlibdir}/libgstplaybin.so
 %attr(755,root,root) %{gstlibdir}/libgstsubparse.so
 %attr(755,root,root) %{gstlibdir}/libgsttcp.so
@@ -336,6 +339,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgstcdda-*.la
 %{_libdir}/libgstinterfaces-*.la
 %{_libdir}/libgstnetbuffer-*.la
+%{_libdir}/libgstpbutils-*.la
 %{_libdir}/libgstriff-*.la
 %{_libdir}/libgstrtp-*.la
 %{_libdir}/libgsttag-*.la
@@ -345,6 +349,7 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/floatcast
 %{gstincludedir}/gst/interfaces
 %{gstincludedir}/gst/netbuffer
+%{gstincludedir}/gst/pbutils
 %{gstincludedir}/gst/riff
 %{gstincludedir}/gst/rtp
 %{gstincludedir}/gst/tag
