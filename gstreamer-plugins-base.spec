@@ -1,5 +1,6 @@
 #
 # Conditional build:
+%bcond_without	apidocs		# disable gtk-doc
 %bcond_without	gnomevfs	# don't build gnome-vfs plugin
 %bcond_without	libvisual	# don't build libvisual plugin
 #
@@ -11,7 +12,7 @@ Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
 Version:	0.10.12
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
@@ -23,7 +24,7 @@ BuildRequires:	automake
 BuildRequires:	glib2-devel >= 1:2.12.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.10.0
-BuildRequires:	gtk-doc >= 1.6
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
 BuildRequires:	liboil-devel >= 1:0.3.8
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
@@ -120,6 +121,18 @@ Include files for GStreamer streaming-media framework plugins.
 
 %description devel -l pl.UTF-8
 Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer.
+
+%package apidocs
+Summary:	GStreamer streaming-media framework plugins API documentation
+Summary(pl.UTF-8):	Dokumentacja API wtyczek środowiska obróbki strumieni GStreamer
+Group:		Documentation
+Requires:	gtk-doc-common
+
+%description apidocs
+GStreamer streaming-media framework plugins API documentation.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API wtyczek środowiska obróbki strumieni GStreamer.
 
 ##
 ## Plugins
@@ -272,7 +285,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
 	--disable-static \
-	--enable-gtk-doc \
+	--%{?with_apidocs:en}%{!?with_apidocs:dis}able-gtk-doc \
 	--with-html-dir=%{_gtkdocdir}
 
 %{__make}
@@ -356,8 +369,13 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
 %{_pkgconfigdir}/gstreamer-plugins-base-*.pc
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
 %{_gtkdocdir}/gst-plugins-base-libs-*
 %{_gtkdocdir}/gst-plugins-base-plugins-*
+%endif
 
 ##
 ## Plugins
