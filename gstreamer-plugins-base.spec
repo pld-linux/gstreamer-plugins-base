@@ -6,17 +6,17 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.11.1
+%define		gst_req_ver	0.10.13
 #
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.12
-Release:	2
+Version:	0.10.13
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	0ee35455a4eb507bcfbfcd44d9e15d1e
+# Source0-md5:	735f7b911cd00540d2bea8596a3859cd
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
@@ -324,14 +324,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudioconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
-%attr(755,root,root) %{gstlibdir}/libgstdecodebin.so
 %attr(755,root,root) %{gstlibdir}/libgstdecodebin2.so
+%attr(755,root,root) %{gstlibdir}/libgstdecodebin.so
 %attr(755,root,root) %{gstlibdir}/libgstffmpegcolorspace.so
 %attr(755,root,root) %{gstlibdir}/libgstgdp.so
 %attr(755,root,root) %{gstlibdir}/libgstplaybin.so
+%attr(755,root,root) %{gstlibdir}/libgstqueue2.so
 %attr(755,root,root) %{gstlibdir}/libgstsubparse.so
 %attr(755,root,root) %{gstlibdir}/libgsttcp.so
 %attr(755,root,root) %{gstlibdir}/libgsttypefindfunctions.so
+%attr(755,root,root) %{gstlibdir}/libgsturidecodebin.so
 %attr(755,root,root) %{gstlibdir}/libgstvideo4linux.so
 %attr(755,root,root) %{gstlibdir}/libgstvideorate.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
