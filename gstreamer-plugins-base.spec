@@ -68,7 +68,6 @@ Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
 Obsoletes:	gstreamer-qcam
 Obsoletes:	gstreamer-snapshot
-Obsoletes:	gstreamer-sndfile
 Obsoletes:	gstreamer-tcp
 Obsoletes:	gstreamer-tuner
 Obsoletes:	gstreamer-v4l
