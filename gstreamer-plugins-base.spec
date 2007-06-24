@@ -72,7 +72,6 @@ Obsoletes:	gstreamer-tcp
 Obsoletes:	gstreamer-tuner
 Obsoletes:	gstreamer-v4l
 Obsoletes:	gstreamer-vbidec
-Obsoletes:	gstreamer-vcd
 Obsoletes:	gstreamer-videosink-xv
 Obsoletes:	gstreamer-videotest
 Obsoletes:	gstreamer-xine
