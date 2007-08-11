@@ -2,12 +2,16 @@
 # Conditional build:
 %bcond_without	apidocs		# disable gtk-doc
 %bcond_without	gnomevfs	# don't build gnome-vfs plugin
+%bcond_without	gnome		# disable gnome-vfs (alias)
 %bcond_without	libvisual	# don't build libvisual plugin
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
 %define		gst_req_ver	0.10.14
 #
+%if %{without gnome}
+%undefine	with_gnomevfs
+%endif
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
@@ -17,10 +21,12 @@ License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
 # Source0-md5:	ef9bcc88c84e47684a901da339a7c6b3
+Source1:	%{name}.pl.po
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
+BuildRequires:	gettext-devel >= 0.11.5
 BuildRequires:	glib2-devel >= 1:2.12.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.10.0
@@ -37,7 +43,7 @@ BuildRequires:	cdparanoia-III-devel >= alpha9.8-6
 BuildRequires:	freetype-devel >= 2.1.2
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.3}
 BuildRequires:	libogg-devel >= 2:1.0
-BuildRequires:	libtheora-devel >= 1.0-0.alpha3.1
+BuildRequires:	libtheora-devel >= 1.0-0.alpha5
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	rpmbuild(macros) >= 1.98
@@ -222,6 +228,7 @@ Summary:	GStreamer Ogg Theora plugin
 Summary(pl.UTF-8):	Wtyczka Ogg Theora do GStreamera
 Group:		Libraries
 Requires:	gstreamer >= %{gst_req_ver}
+Requires:	libtheora >= 1.0-0.alpha5
 
 %description -n gstreamer-theora
 GStreamer Ogg Theora plugin.
@@ -273,6 +280,9 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %setup -q -n %{gstname}-%{version}
 %patch0 -p1
 
+cp %{SOURCE1} po/pl.po
+echo 'pl' >> po/LINGUAS
+
 %build
 %{__libtoolize}
 %{__aclocal} -I m4 -I common/m4
@@ -316,6 +326,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstpbutils-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstriff-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstrtp-*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libgstrtsp-*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libgstsdp-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgsttag-*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libgstvideo-*.so.*.*.*
 
@@ -347,6 +359,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstpbutils-*.so
 %attr(755,root,root) %{_libdir}/libgstriff-*.so
 %attr(755,root,root) %{_libdir}/libgstrtp-*.so
+%attr(755,root,root) %{_libdir}/libgstrtsp-*.so
+%attr(755,root,root) %{_libdir}/libgstsdp-*.so
 %attr(755,root,root) %{_libdir}/libgsttag-*.so
 %attr(755,root,root) %{_libdir}/libgstvideo-*.so
 %{_libdir}/libgstaudio-*.la
@@ -356,6 +370,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgstpbutils-*.la
 %{_libdir}/libgstriff-*.la
 %{_libdir}/libgstrtp-*.la
+%{_libdir}/libgstrtsp-*.la
+%{_libdir}/libgstsdp-*.la
 %{_libdir}/libgsttag-*.la
 %{_libdir}/libgstvideo-*.la
 %{gstincludedir}/gst/audio
@@ -366,6 +382,8 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/pbutils
 %{gstincludedir}/gst/riff
 %{gstincludedir}/gst/rtp
+%{gstincludedir}/gst/rtsp
+%{gstincludedir}/gst/sdp
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
 %{_pkgconfigdir}/gstreamer-plugins-base-*.pc
