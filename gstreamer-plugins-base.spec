@@ -7,7 +7,7 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.14
+%define		gst_req_ver	0.10.15
 #
 %if %{without gnome}
 %undefine	with_gnomevfs
@@ -15,14 +15,14 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.14
+Version:	0.10.15
 Release:	1
-License:	LGPL
+License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	ef9bcc88c84e47684a901da339a7c6b3
-Source1:	%{name}.pl.po
+# Source0-md5:	8449359b465074433fec626778bcf36f
 Patch0:		%{name}-bashish.patch
+Patch1:		%{name}-pl.po-update.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -279,9 +279,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %prep
 %setup -q -n %{gstname}-%{version}
 %patch0 -p1
-
-cp %{SOURCE1} po/pl.po
-echo 'pl' >> po/LINGUAS
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -320,16 +318,29 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README RELEASE
 %attr(755,root,root) %{_bindir}/gst-visualise-*
 %attr(755,root,root) %{_libdir}/libgstaudio-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstaudio-*.so.0
 %attr(755,root,root) %{_libdir}/libgstcdda-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstcdda-*.so.0
+%attr(755,root,root) %{_libdir}/libgstfft-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstfft-*.so.0
 %attr(755,root,root) %{_libdir}/libgstinterfaces-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstinterfaces-*.so.0
 %attr(755,root,root) %{_libdir}/libgstnetbuffer-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstnetbuffer-*.so.0
 %attr(755,root,root) %{_libdir}/libgstpbutils-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstpbutils-*.so.0
 %attr(755,root,root) %{_libdir}/libgstriff-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstriff-*.so.0
 %attr(755,root,root) %{_libdir}/libgstrtp-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstrtp-*.so.0
 %attr(755,root,root) %{_libdir}/libgstrtsp-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstrtsp-*.so.0
 %attr(755,root,root) %{_libdir}/libgstsdp-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstsdp-*.so.0
 %attr(755,root,root) %{_libdir}/libgsttag-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgsttag-*.so.0
 %attr(755,root,root) %{_libdir}/libgstvideo-*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstvideo-*.so.0
 
 %attr(755,root,root) %{gstlibdir}/libgstaudioconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
@@ -354,6 +365,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgstaudio-*.so
 %attr(755,root,root) %{_libdir}/libgstcdda-*.so
+%attr(755,root,root) %{_libdir}/libgstfft-*.so
 %attr(755,root,root) %{_libdir}/libgstinterfaces-*.so
 %attr(755,root,root) %{_libdir}/libgstnetbuffer-*.so
 %attr(755,root,root) %{_libdir}/libgstpbutils-*.so
@@ -365,6 +377,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstvideo-*.so
 %{_libdir}/libgstaudio-*.la
 %{_libdir}/libgstcdda-*.la
+%{_libdir}/libgstfft-*.la
 %{_libdir}/libgstinterfaces-*.la
 %{_libdir}/libgstnetbuffer-*.la
 %{_libdir}/libgstpbutils-*.la
@@ -376,6 +389,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgstvideo-*.la
 %{gstincludedir}/gst/audio
 %{gstincludedir}/gst/cdda
+%{gstincludedir}/gst/fft
 %{gstincludedir}/gst/floatcast
 %{gstincludedir}/gst/interfaces
 %{gstincludedir}/gst/netbuffer
