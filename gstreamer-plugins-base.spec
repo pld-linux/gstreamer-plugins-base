@@ -7,7 +7,7 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.15
+%define		gst_req_ver	0.10.17
 #
 %if %{without gnome}
 %undefine	with_gnomevfs
@@ -15,14 +15,13 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.15
+Version:	0.10.17
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	8449359b465074433fec626778bcf36f
+# Source0-md5:	151b66228e08ab0c7601713030fb1c3f
 Patch0:		%{name}-bashish.patch
-Patch1:		%{name}-pl.po-update.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -279,7 +278,6 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %prep
 %setup -q -n %{gstname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -341,7 +339,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libgsttag-*.so.0
 %attr(755,root,root) %{_libdir}/libgstvideo-*.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstvideo-*.so.0
-
+%{_mandir}/man1/gst-visualise-*.1*
+# plugins with no external dependencies
 %attr(755,root,root) %{gstlibdir}/libgstaudioconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
@@ -354,12 +353,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstsubparse.so
 %attr(755,root,root) %{gstlibdir}/libgsttcp.so
 %attr(755,root,root) %{gstlibdir}/libgsttypefindfunctions.so
-%attr(755,root,root) %{gstlibdir}/libgsturidecodebin.so
 %attr(755,root,root) %{gstlibdir}/libgstvideo4linux.so
 %attr(755,root,root) %{gstlibdir}/libgstvideorate.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
 %attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
-%{_mandir}/man1/gst-visualise-*.1*
 
 %files devel
 %defattr(644,root,root,755)
@@ -400,7 +397,20 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/sdp
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
-%{_pkgconfigdir}/gstreamer-plugins-base-*.pc
+%{_pkgconfigdir}/gstreamer-audio-0.10.pc
+%{_pkgconfigdir}/gstreamer-cdda-0.10.pc
+%{_pkgconfigdir}/gstreamer-fft-0.10.pc
+%{_pkgconfigdir}/gstreamer-floatcast-0.10.pc
+%{_pkgconfigdir}/gstreamer-interfaces-0.10.pc
+%{_pkgconfigdir}/gstreamer-netbuffer-0.10.pc
+%{_pkgconfigdir}/gstreamer-pbutils-0.10.pc
+%{_pkgconfigdir}/gstreamer-plugins-base-0.10.pc
+%{_pkgconfigdir}/gstreamer-riff-0.10.pc
+%{_pkgconfigdir}/gstreamer-rtp-0.10.pc
+%{_pkgconfigdir}/gstreamer-rtsp-0.10.pc
+%{_pkgconfigdir}/gstreamer-sdp-0.10.pc
+%{_pkgconfigdir}/gstreamer-tag-0.10.pc
+%{_pkgconfigdir}/gstreamer-video-0.10.pc
 
 %if %{with apidocs}
 %files apidocs
