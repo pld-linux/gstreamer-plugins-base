@@ -53,11 +53,9 @@ Requires:	gstreamer >= %{gst_req_ver}
 Obsoletes:	gstreamer-artsd
 Obsoletes:	gstreamer-audio-effects
 Obsoletes:	gstreamer-audiofile
-Obsoletes:	gstreamer-audiosink-polypaudio
 Obsoletes:	gstreamer-avi
 Obsoletes:	gstreamer-cdplayer
 Obsoletes:	gstreamer-colorspace
-Obsoletes:	gstreamer-dirac
 Obsoletes:	gstreamer-festival
 Obsoletes:	gstreamer-interfaces
 Obsoletes:	gstreamer-interleave
@@ -67,7 +65,6 @@ Obsoletes:	gstreamer-libfame
 Obsoletes:	gstreamer-media-info
 Obsoletes:	gstreamer-mikmod
 Obsoletes:	gstreamer-misc
-Obsoletes:	gstreamer-nas
 Obsoletes:	gstreamer-oneton
 Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
