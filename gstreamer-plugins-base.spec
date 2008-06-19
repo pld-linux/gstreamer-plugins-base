@@ -16,7 +16,7 @@ Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
 Version:	0.10.20
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
@@ -30,7 +30,7 @@ BuildRequires:	glib2-devel >= 1:2.12.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.10.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
-BuildRequires:	liboil-devel >= 1:0.3.8
+BuildRequires:	liboil-devel >= 1:0.3.14
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-PyXML
