@@ -22,6 +22,7 @@ Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
 # Source0-md5:	180dd3452438b31fba732d2216e55eb6
 Patch0:		%{name}-bashish.patch
+Patch1:		%{name}-theora.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -42,7 +43,7 @@ BuildRequires:	cdparanoia-III-devel >= alpha9.8-6
 BuildRequires:	freetype-devel >= 2.1.2
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.3}
 BuildRequires:	libogg-devel >= 2:1.0
-BuildRequires:	libtheora-devel >= 1.0-0.alpha5
+BuildRequires:	libtheora-devel >= 1.0-1.RC1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	rpmbuild(macros) >= 1.98
@@ -275,6 +276,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %prep
 %setup -q -n %{gstname}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
