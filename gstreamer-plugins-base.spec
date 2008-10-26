@@ -15,12 +15,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.20
-Release:	3
+Version:	0.10.21
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	180dd3452438b31fba732d2216e55eb6
+# Source0-md5:	0e0cd485311502ad1c0c028148e3186a
 Patch0:		%{name}-bashish.patch
 Patch1:		%{name}-theora.patch
 URL:		http://gstreamer.freedesktop.org/
