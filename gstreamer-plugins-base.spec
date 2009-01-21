@@ -7,22 +7,24 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.20
+%define		gst_req_ver	0.10.22
 #
 %if %{without gnome}
 %undefine	with_gnomevfs
 %endif
+#
+%include	/usr/lib/rpm/macros.gstreamer
+#
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.21
-Release:	2
+Version:	0.10.22
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	0e0cd485311502ad1c0c028148e3186a
+# Source0-md5:	5d0f1e07f8f6db564971b50f75261e8a
 Patch0:		%{name}-bashish.patch
-Patch1:		%{name}-theora.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -30,7 +32,7 @@ BuildRequires:	gettext-devel >= 0.11.5
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gtk+2-devel >= 2:2.10.0
+BuildRequires:	gtk+2-devel >= 2:2.12.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
 BuildRequires:	liboil-devel >= 1:0.3.14
 BuildRequires:	libtool
@@ -277,7 +279,6 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %prep
 %setup -q -n %{gstname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -316,6 +317,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README RELEASE
 %attr(755,root,root) %{_bindir}/gst-visualise-*
+%attr(755,root,root) %{_libdir}/libgstapp-0.10.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstapp-0.10.so.0
 %attr(755,root,root) %{_libdir}/libgstaudio-*.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstaudio-*.so.0
 %attr(755,root,root) %{_libdir}/libgstcdda-*.so.*.*.*
@@ -342,6 +345,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libgstvideo-*.so.0
 %{_mandir}/man1/gst-visualise-*.1*
 # plugins with no external dependencies
+%attr(755,root,root) %{gstlibdir}/libgstapp.so
 %attr(755,root,root) %{gstlibdir}/libgstaudioconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
@@ -362,6 +366,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgstapp-*.so
 %attr(755,root,root) %{_libdir}/libgstaudio-*.so
 %attr(755,root,root) %{_libdir}/libgstcdda-*.so
 %attr(755,root,root) %{_libdir}/libgstfft-*.so
@@ -374,6 +379,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstsdp-*.so
 %attr(755,root,root) %{_libdir}/libgsttag-*.so
 %attr(755,root,root) %{_libdir}/libgstvideo-*.so
+%{_libdir}/libgstapp-*.la
 %{_libdir}/libgstaudio-*.la
 %{_libdir}/libgstcdda-*.la
 %{_libdir}/libgstfft-*.la
@@ -386,6 +392,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgstsdp-*.la
 %{_libdir}/libgsttag-*.la
 %{_libdir}/libgstvideo-*.la
+%{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
 %{gstincludedir}/gst/cdda
 %{gstincludedir}/gst/fft
@@ -399,6 +406,7 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/sdp
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
+%{_pkgconfigdir}/gstreamer-app-0.10.pc
 %{_pkgconfigdir}/gstreamer-audio-0.10.pc
 %{_pkgconfigdir}/gstreamer-cdda-0.10.pc
 %{_pkgconfigdir}/gstreamer-fft-0.10.pc
