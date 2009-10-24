@@ -7,7 +7,7 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.24
+%define		gst_req_ver	0.10.25
 #
 %if %{without gnome}
 %undefine	with_gnomevfs
@@ -18,12 +18,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.24
+Version:	0.10.25
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	a3ec977c9c6602caacc2d3a7c12a17bf
+# Source0-md5:	d29669dd79276c5cd94e1613c03cd9ab
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
@@ -31,6 +31,7 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel >= 0.11.5
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	glib2-devel >= 1:2.16.0
+BuildRequires:	gobject-introspection-devel >= 0.6.5
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.12.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
@@ -294,7 +295,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 	--%{?with_apidocs:en}%{!?with_apidocs:dis}able-gtk-doc \
 	--with-html-dir=%{_gtkdocdir}
 
-%{__make}
+%{__make} V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -363,6 +364,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvideorate.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
 %attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
+%{_libdir}/girepository-1.0/GstApp-0.10.typelib
+%{_libdir}/girepository-1.0/GstAudio-0.10.typelib
+%{_libdir}/girepository-1.0/GstFft-0.10.typelib
+%{_libdir}/girepository-1.0/GstInterfaces-0.10.typelib
+%{_libdir}/girepository-1.0/GstNetbuffer-0.10.typelib
+%{_libdir}/girepository-1.0/GstPbutils-0.10.typelib
+%{_libdir}/girepository-1.0/GstRiff-0.10.typelib
+%{_libdir}/girepository-1.0/GstRtp-0.10.typelib
+%{_libdir}/girepository-1.0/GstRtsp-0.10.typelib
+%{_libdir}/girepository-1.0/GstSdp-0.10.typelib
+%{_libdir}/girepository-1.0/GstTag-0.10.typelib
+%{_libdir}/girepository-1.0/GstVideo-0.10.typelib
 
 %files devel
 %defattr(644,root,root,755)
@@ -421,6 +434,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/gstreamer-sdp-0.10.pc
 %{_pkgconfigdir}/gstreamer-tag-0.10.pc
 %{_pkgconfigdir}/gstreamer-video-0.10.pc
+%{_datadir}/gir-1.0/GstApp-0.10.gir
+%{_datadir}/gir-1.0/GstAudio-0.10.gir
+%{_datadir}/gir-1.0/GstFft-0.10.gir
+%{_datadir}/gir-1.0/GstInterfaces-0.10.gir
+%{_datadir}/gir-1.0/GstNetbuffer-0.10.gir
+%{_datadir}/gir-1.0/GstPbutils-0.10.gir
+%{_datadir}/gir-1.0/GstRiff-0.10.gir
+%{_datadir}/gir-1.0/GstRtp-0.10.gir
+%{_datadir}/gir-1.0/GstRtsp-0.10.gir
+%{_datadir}/gir-1.0/GstSdp-0.10.gir
+%{_datadir}/gir-1.0/GstTag-0.10.gir
+%{_datadir}/gir-1.0/GstVideo-0.10.gir
 
 %if %{with apidocs}
 %files apidocs
