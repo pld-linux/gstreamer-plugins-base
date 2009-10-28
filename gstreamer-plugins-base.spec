@@ -43,7 +43,7 @@ BuildRequires:	python-PyXML
 ## plugins
 ##
 BuildRequires:	alsa-lib-devel >= 1.0.11
-BuildRequires:	cdparanoia-III-devel >= alpha9.8-6
+BuildRequires:	cdparanoia-III-devel >= 2:10.0
 BuildRequires:	freetype-devel >= 2.1.2
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.3}
 BuildRequires:	libogg-devel >= 2:1.0
