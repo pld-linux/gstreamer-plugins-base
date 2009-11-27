@@ -31,6 +31,7 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel >= 0.11.5
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	glib2-devel >= 1:2.16.0
+BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 0.6.5
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.12.0
