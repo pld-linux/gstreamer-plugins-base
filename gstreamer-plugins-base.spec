@@ -56,6 +56,8 @@ BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
+# old GIR format
+BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	gstreamer >= %{gst_req_ver}
 Obsoletes:	gstreamer-artsd
 Obsoletes:	gstreamer-audio-effects
