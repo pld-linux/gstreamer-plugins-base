@@ -7,7 +7,7 @@
 #
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.29
+%define		gst_req_ver	0.10.30
 #
 %if %{without gnome}
 %undefine	with_gnomevfs
@@ -18,13 +18,14 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.29
-Release:	2
+Version:	0.10.30
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	d07e251152cccbaa81807c14cf0fd8c0
+# Source0-md5:	3ad90152b58563e1314af26c263f3c4c
 Patch0:		%{name}-bashish.patch
+Patch1:		Makefile.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -36,7 +37,7 @@ BuildRequires:	gobject-introspection-devel >= 0.6.5
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.12.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
-BuildRequires:	liboil-devel >= 1:0.3.14
+BuildRequires:	orc-devel >= 0.4.5
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-PyXML
@@ -281,6 +282,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %prep
 %setup -q -n %{gstname}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -291,9 +293,10 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %configure \
 	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
-	--enable-experimental \
 	--disable-examples \
 	--disable-static \
+	--enable-experimental \
+	--enable-orc \
 	--%{?with_apidocs:en}%{!?with_apidocs:dis}able-gtk-doc \
 	--with-html-dir=%{_gtkdocdir}
 
