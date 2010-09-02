@@ -27,37 +27,41 @@ Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{vers
 Patch0:		%{name}-bashish.patch
 Patch1:		Makefile.patch
 URL:		http://gstreamer.freedesktop.org/
-BuildRequires:	autoconf >= 2.52
-BuildRequires:	automake
-BuildRequires:	gettext-devel >= 0.11.5
+BuildRequires:	autoconf >= 2.60
+BuildRequires:	automake >= 1:1.10
+BuildRequires:	gettext-devel >= 0.17
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
-BuildRequires:	glib2-devel >= 1:2.16.0
+BuildRequires:	glib2-devel >= 1:2.20.0
 BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 0.6.5
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gtk+2-devel >= 2:2.12.0
+BuildRequires:	gtk+2-devel >= 2:2.14.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
-BuildRequires:	orc-devel >= 0.4.5
 BuildRequires:	libtool
+BuildRequires:	libxml2-devel >= 2.0
+BuildRequires:	orc-devel >= 0.4.5
 BuildRequires:	pkgconfig
-BuildRequires:	python-PyXML
+BuildRequires:	python >= 2.1
 ##
 ## plugins
 ##
 BuildRequires:	alsa-lib-devel >= 1.0.11
-BuildRequires:	cdparanoia-III-devel >= 2:10.0
+BuildRequires:	cdparanoia-III-devel >= 2:10.2
 BuildRequires:	freetype-devel >= 2.1.2
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.3}
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libtheora-devel >= 1.0-1.RC1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
 BuildRequires:	libvorbis-devel >= 1:1.0
+BuildRequires:	pango-devel >= 1:1.16.0
 BuildRequires:	rpmbuild(macros) >= 1.98
+BuildRequires:	udev-glib-devel >= 143
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
+Requires:	glib2 >= 1:2.20.0
 Requires:	gstreamer >= %{gst_req_ver}
 Obsoletes:	gstreamer-artsd
 Obsoletes:	gstreamer-audio-effects
