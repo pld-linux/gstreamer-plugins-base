@@ -119,6 +119,7 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	glib2-devel >= 1:2.20.0
 Requires:	gstreamer-devel >= %{gst_req_ver}
 Obsoletes:	gstreamer-interfaces-devel
 Obsoletes:	gstreamer-media-info-devel
@@ -245,6 +246,19 @@ GStreamer Ogg Theora plugin.
 %description -n gstreamer-theora -l pl.UTF-8
 Wtyczka Ogg Theora do GStreamera.
 
+%package -n gstreamer-video4linux
+Summary:	GStreamer plugin for Video 4 Linux source
+Summary(pl.UTF-8):	Wtyczka GStreamera dla źródła Video 4 Linux
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	udev-glib >= 143
+
+%description -n gstreamer-video4linux
+GStreamer plugin for Video 4 Linux source.
+
+%description -n gstreamer-video4linux -l pl.UTF-8
+Wtyczka GStreamera dla źródła Video 4 Linux.
+
 %package -n gstreamer-vorbis
 Summary:	GStreamer plugin for encoding and decoding Ogg Vorbis audio files
 Summary(pl.UTF-8):	Wtyczki do GStreamera kodujące i dekodujące pliki dźwiękowe Ogg Vorbis
@@ -315,7 +329,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # We don't need plugins' *.la files
-rm -f $RPM_BUILD_ROOT%{gstlibdir}/*.la
+%{__rm} $RPM_BUILD_ROOT%{gstlibdir}/*.la
 
 %find_lang %{gstname}-%{gst_major_ver}
 
@@ -370,7 +384,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstsubparse.so
 %attr(755,root,root) %{gstlibdir}/libgsttcp.so
 %attr(755,root,root) %{gstlibdir}/libgsttypefindfunctions.so
-%attr(755,root,root) %{gstlibdir}/libgstvideo4linux.so
 %attr(755,root,root) %{gstlibdir}/libgstvideorate.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
 %attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
@@ -501,6 +514,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gstreamer-theora
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgsttheora.so
+
+%files -n gstreamer-video4linux
+%defattr(644,root,root,755)
+%attr(755,root,root) %{gstlibdir}/libgstvideo4linux.so
 
 %files -n gstreamer-vorbis
 %defattr(644,root,root,755)
