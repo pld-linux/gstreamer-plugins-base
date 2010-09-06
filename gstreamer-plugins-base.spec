@@ -4,22 +4,21 @@
 %bcond_without	gnomevfs	# don't build gnome-vfs plugin
 %bcond_without	gnome		# disable gnome-vfs (alias)
 %bcond_without	libvisual	# don't build libvisual plugin
-#
+
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
 %define		gst_req_ver	0.10.30
-#
+
 %if %{without gnome}
 %undefine	with_gnomevfs
 %endif
-#
+
 %include	/usr/lib/rpm/macros.gstreamer
-#
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
 Version:	0.10.30
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
@@ -29,8 +28,8 @@ Patch1:		Makefile.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.10
-BuildRequires:	gettext-devel >= 0.17
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
+BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	glib2-devel >= 1:2.20.0
 BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 0.6.5
@@ -172,6 +171,7 @@ Summary:	GStreamer base audio effects plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki efektów dźwiękowych do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	orc >= 0.4.5
 Obsoletes:	gstreamer-audio-effects
 
 %description -n gstreamer-audio-effects-base
