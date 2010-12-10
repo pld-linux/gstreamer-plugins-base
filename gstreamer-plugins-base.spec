@@ -17,14 +17,13 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.30
-Release:	2
+Version:	0.10.31
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	3ad90152b58563e1314af26c263f3c4c
+# Source0-md5:	9baa0d87e81c88b2477a3554ab629c46
 Patch0:		%{name}-bashish.patch
-Patch1:		Makefile.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.10
@@ -302,7 +301,6 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %prep
 %setup -q -n %{gstname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -342,7 +340,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{gstname}-%{gst_major_ver}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README RELEASE
-%attr(755,root,root) %{_bindir}/gst-visualise-*
+%attr(755,root,root) %{_bindir}/gst-discoverer-0.10
+%attr(755,root,root) %{_bindir}/gst-visualise-0.10
 %attr(755,root,root) %{_libdir}/libgstapp-0.10.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstapp-0.10.so.0
 %attr(755,root,root) %{_libdir}/libgstaudio-*.so.*.*.*
