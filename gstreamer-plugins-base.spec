@@ -7,7 +7,7 @@
 
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.30
+%define		gst_req_ver	0.10.32
 
 %if %{without gnome}
 %undefine	with_gnomevfs
@@ -17,27 +17,28 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.31
+Version:	0.10.32
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	9baa0d87e81c88b2477a3554ab629c46
+# Source0-md5:	2920af2b3162f3d9fbaa7fabc8ed4d38
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.10
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-devel >= 0.17
-BuildRequires:	glib2-devel >= 1:2.20.0
+BuildRequires:	glib2-devel >= 1:2.22
 BuildRequires:	glibc-misc
-BuildRequires:	gobject-introspection-devel >= 0.6.5
+BuildRequires:	gobject-introspection-devel >= 0.9.12
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+2-devel >= 2:2.14.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
+BuildRequires:	iso-codes
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	orc-devel >= 0.4.5
+BuildRequires:	orc-devel >= 0.4.11
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2.1
 ##
@@ -48,7 +49,7 @@ BuildRequires:	cdparanoia-III-devel >= 2:10.2
 BuildRequires:	freetype-devel >= 2.1.2
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.3}
 BuildRequires:	libogg-devel >= 2:1.0
-BuildRequires:	libtheora-devel >= 1.0-1.RC1
+BuildRequires:	libtheora-devel >= 1.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	pango-devel >= 1:1.16.0
@@ -59,7 +60,7 @@ BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.20.0
+Requires:	glib2 >= 1:2.22
 Requires:	gstreamer >= %{gst_req_ver}
 Obsoletes:	gstreamer-artsd
 Obsoletes:	gstreamer-audio-effects
@@ -117,7 +118,7 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.20.0
+Requires:	glib2-devel >= 1:2.22
 Requires:	gstreamer-devel >= %{gst_req_ver}
 Obsoletes:	gstreamer-interfaces-devel
 Obsoletes:	gstreamer-media-info-devel
@@ -170,7 +171,7 @@ Summary:	GStreamer base audio effects plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki efektów dźwiękowych do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	orc >= 0.4.5
+Requires:	orc >= 0.4.11
 Obsoletes:	gstreamer-audio-effects
 
 %description -n gstreamer-audio-effects-base
@@ -237,7 +238,7 @@ Summary:	GStreamer Ogg Theora plugin
 Summary(pl.UTF-8):	Wtyczka Ogg Theora do GStreamera
 Group:		Libraries
 Requires:	gstreamer >= %{gst_req_ver}
-Requires:	libtheora >= 1.0-0.alpha5
+Requires:	libtheora >= 1.1
 
 %description -n gstreamer-theora
 GStreamer Ogg Theora plugin.
@@ -312,13 +313,14 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
 	--disable-examples \
+	--disable-silent-rules \
 	--disable-static \
 	--enable-experimental \
+	--enable-gtk-doc%{!?with_apidocs:=no} \
 	--enable-orc \
-	--%{?with_apidocs:en}%{!?with_apidocs:dis}able-gtk-doc \
 	--with-html-dir=%{_gtkdocdir}
 
-%{__make} V=1
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -376,6 +378,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstdecodebin2.so
 %attr(755,root,root) %{gstlibdir}/libgstdecodebin.so
+%attr(755,root,root) %{gstlibdir}/libgstencodebin.so
 %attr(755,root,root) %{gstlibdir}/libgstffmpegcolorspace.so
 %attr(755,root,root) %{gstlibdir}/libgstgdp.so
 %attr(755,root,root) %{gstlibdir}/libgstgio.so
