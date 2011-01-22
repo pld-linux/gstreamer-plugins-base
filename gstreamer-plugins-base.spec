@@ -62,6 +62,7 @@ BuildRequires:	xorg-lib-libXv-devel
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.22
 Requires:	gstreamer >= %{gst_req_ver}
+Suggests:	iso-codes
 Obsoletes:	gstreamer-artsd
 Obsoletes:	gstreamer-audio-effects
 Obsoletes:	gstreamer-audiofile
