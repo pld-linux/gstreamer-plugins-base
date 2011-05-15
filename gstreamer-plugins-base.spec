@@ -4,10 +4,11 @@
 %bcond_without	gnomevfs	# don't build gnome-vfs plugin
 %bcond_without	gnome		# disable gnome-vfs (alias)
 %bcond_without	libvisual	# don't build libvisual plugin
+%bcond_with	v4l1		# Video4Linux 1 plugin (for Linux < 2.6.35 or so)
 
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.32
+%define		gst_req_ver	0.10.34
 
 %if %{without gnome}
 %undefine	with_gnomevfs
@@ -17,12 +18,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.32
+Version:	0.10.34
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	2920af2b3162f3d9fbaa7fabc8ed4d38
+# Source0-md5:	a8db3791c8b119d9cf109b8e18fb8fe9
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.60
@@ -519,9 +520,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgsttheora.so
 
+%if %{with v4l1}
 %files -n gstreamer-video4linux
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgstvideo4linux.so
+%endif
 
 %files -n gstreamer-vorbis
 %defattr(644,root,root,755)
