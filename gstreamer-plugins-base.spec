@@ -18,12 +18,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.34
+Version:	0.10.35
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	a8db3791c8b119d9cf109b8e18fb8fe9
+# Source0-md5:	1d300983525f4f09030eb3ba47cb04b0
 Patch0:		%{name}-bashish.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.60
@@ -333,6 +333,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # We don't need plugins' *.la files
 %{__rm} $RPM_BUILD_ROOT%{gstlibdir}/*.la
+# *.la for libs kept - no .private dependencies in *.pc
 
 %find_lang %{gstname}-%{gst_major_ver}
 
