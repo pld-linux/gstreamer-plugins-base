@@ -8,7 +8,7 @@
 
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.34
+%define		gst_req_ver	0.10.36
 
 %if %{without gnome}
 %undefine	with_gnomevfs
@@ -18,19 +18,18 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.35
+Version:	0.10.36
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.bz2
-# Source0-md5:	1d300983525f4f09030eb3ba47cb04b0
-Patch0:		%{name}-bashish.patch
+Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
+# Source0-md5:	3d2337841b132fe996e5eb2396ac9438
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.10
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-devel >= 0.17
-BuildRequires:	glib2-devel >= 1:2.22
+BuildRequires:	glib2-devel >= 1:2.24
 BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 0.9.12
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
@@ -42,6 +41,8 @@ BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	orc-devel >= 0.4.11
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2.1
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 ##
 ## plugins
 ##
@@ -59,9 +60,10 @@ BuildRequires:	udev-glib-devel >= 143
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
+BuildRequires:	zlib-devel
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.22
+Requires:	glib2 >= 1:2.24
 Requires:	gstreamer >= %{gst_req_ver}
 Suggests:	iso-codes
 Obsoletes:	gstreamer-artsd
@@ -120,7 +122,7 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.22
+Requires:	glib2-devel >= 1:2.24
 Requires:	gstreamer-devel >= %{gst_req_ver}
 Obsoletes:	gstreamer-interfaces-devel
 Obsoletes:	gstreamer-media-info-devel
@@ -304,7 +306,6 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 
 %prep
 %setup -q -n %{gstname}-%{version}
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -405,6 +406,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/girepository-1.0/GstSdp-0.10.typelib
 %{_libdir}/girepository-1.0/GstTag-0.10.typelib
 %{_libdir}/girepository-1.0/GstVideo-0.10.typelib
+%{_datadir}/gst-plugins-base
 
 %files devel
 %defattr(644,root,root,755)
