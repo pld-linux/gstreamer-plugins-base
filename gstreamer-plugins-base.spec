@@ -1,44 +1,38 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# disable gtk-doc
-%bcond_without	gnomevfs	# don't build gnome-vfs plugin
-%bcond_without	gnome		# disable gnome-vfs (alias)
 %bcond_without	libvisual	# don't build libvisual plugin
 %bcond_with	v4l1		# Video4Linux 1 plugin (for Linux < 2.6.35 or so)
 
 %define		gstname		gst-plugins-base
-%define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.36
-
-%if %{without gnome}
-%undefine	with_gnomevfs
-%endif
+%define		vmajor      1.0
+%define		gst_req_ver	0.11.93
 
 %include	/usr/lib/rpm/macros.gstreamer
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	0.10.36
-Release:	2
+Version:	0.11.93
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	3d2337841b132fe996e5eb2396ac9438
+# Source0-md5:	2fadc76bb0e6df5fd2aceae90ed5a3ee
 URL:		http://gstreamer.freedesktop.org/
-BuildRequires:	autoconf >= 2.60
-BuildRequires:	automake >= 1:1.10
+BuildRequires:	autoconf >= 2.62
+BuildRequires:	automake >= 1:1.11
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-devel >= 0.17
-BuildRequires:	glib2-devel >= 1:2.24
+BuildRequires:	glib2-devel >= 1:2.32
 BuildRequires:	glibc-misc
-BuildRequires:	gobject-introspection-devel >= 0.9.12
+BuildRequires:	gobject-introspection-devel >= 1.31.1
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gtk+2-devel >= 2:2.14.0
+BuildRequires:	gtk+3-devel >= 3.0.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
 BuildRequires:	iso-codes
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	orc-devel >= 0.4.11
+BuildRequires:	orc-devel >= 0.4.16
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2.1
 BuildRequires:	tar >= 1:1.22
@@ -49,21 +43,19 @@ BuildRequires:	xz
 BuildRequires:	alsa-lib-devel >= 1.0.11
 BuildRequires:	cdparanoia-III-devel >= 2:10.2
 BuildRequires:	freetype-devel >= 2.1.2
-%{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.15.3}
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libtheora-devel >= 1.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
 BuildRequires:	libvorbis-devel >= 1:1.0
-BuildRequires:	pango-devel >= 1:1.16.0
+BuildRequires:	pango-devel >= 1:1.22.0
 BuildRequires:	rpmbuild(macros) >= 1.98
-BuildRequires:	udev-glib-devel >= 143
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
 BuildRequires:	zlib-devel
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.24
+Requires:	glib2 >= 1:2.32
 Requires:	gstreamer >= %{gst_req_ver}
 Suggests:	iso-codes
 Obsoletes:	gstreamer-artsd
@@ -98,8 +90,8 @@ Obsoletes:	gstreamer-yuv4mjpeg
 Obsoletes:	gtk-loaders-gstreamer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		gstlibdir 	%{_libdir}/gstreamer-%{gst_major_ver}
-%define		gstincludedir	%{_includedir}/gstreamer-%{gst_major_ver}
+%define		gstlibdir 	%{_libdir}/gstreamer-%{vmajor}
+%define		gstincludedir	%{_includedir}/gstreamer-%{vmajor}
 
 %description
 GStreamer is a streaming-media framework, based on graphs of filters
@@ -122,7 +114,7 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.24
+Requires:	glib2-devel >= 1:2.32
 Requires:	gstreamer-devel >= %{gst_req_ver}
 Obsoletes:	gstreamer-interfaces-devel
 Obsoletes:	gstreamer-media-info-devel
@@ -199,20 +191,6 @@ Plugin for ripping audio tracks using cdparanoia under GStreamer.
 %description -n gstreamer-cdparanoia -l pl.UTF-8
 Wtyczka do ripowania ścieżek dźwiękowych pod GStreamerem za pomocą
 cdparanoia.
-
-%package -n gstreamer-gnomevfs
-Summary:	GStreamer plugins for GNOME VFS input and output
-Summary(pl.UTF-8):	Wtyczki wejścia i wyjścia GNOME VFS do GStreamera
-Group:		Libraries
-#Requires:	gstreamer >= %{gst_req_ver}
-# for locales
-Requires:	%{name} = %{version}-%{release}
-
-%description -n gstreamer-gnomevfs
-Plugins for reading and writing through GNOME VFS.
-
-%description -n gstreamer-gnomevfs -l pl.UTF-8
-Wtyczki do czytania i zapisywania poprzez GNOME VFS.
 
 %package -n gstreamer-libvisual
 Summary:	GStreamer libvisual plugin
@@ -314,7 +292,6 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %{__autoheader}
 %{__automake}
 %configure \
-	%{!?with_gnomevfs:--disable-gnome_vfs} \
 	%{!?with_libvisual:--disable-libvisual} \
 	--disable-examples \
 	--disable-silent-rules \
@@ -336,7 +313,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{gstlibdir}/*.la
 # *.la for libs kept - no .private dependencies in *.pc
 
-%find_lang %{gstname}-%{gst_major_ver}
+%find_lang %{gstname}-%{vmajor}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -344,105 +321,85 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files -f %{gstname}-%{gst_major_ver}.lang
+%files -f %{gstname}-%{vmajor}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README RELEASE
-%attr(755,root,root) %{_bindir}/gst-discoverer-0.10
-%attr(755,root,root) %{_bindir}/gst-visualise-0.10
-%attr(755,root,root) %{_libdir}/libgstapp-0.10.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstapp-0.10.so.0
-%attr(755,root,root) %{_libdir}/libgstaudio-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstaudio-*.so.0
-%attr(755,root,root) %{_libdir}/libgstcdda-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstcdda-*.so.0
-%attr(755,root,root) %{_libdir}/libgstfft-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstfft-*.so.0
-%attr(755,root,root) %{_libdir}/libgstinterfaces-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstinterfaces-*.so.0
-%attr(755,root,root) %{_libdir}/libgstnetbuffer-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstnetbuffer-*.so.0
-%attr(755,root,root) %{_libdir}/libgstpbutils-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstpbutils-*.so.0
-%attr(755,root,root) %{_libdir}/libgstriff-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstriff-*.so.0
-%attr(755,root,root) %{_libdir}/libgstrtp-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstrtp-*.so.0
-%attr(755,root,root) %{_libdir}/libgstrtsp-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstrtsp-*.so.0
-%attr(755,root,root) %{_libdir}/libgstsdp-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstsdp-*.so.0
-%attr(755,root,root) %{_libdir}/libgsttag-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgsttag-*.so.0
-%attr(755,root,root) %{_libdir}/libgstvideo-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstvideo-*.so.0
-%{_mandir}/man1/gst-visualise-*.1*
+%attr(755,root,root) %{_bindir}/gst-discoverer-%{vmajor}
+%attr(755,root,root) %{_bindir}/gst-visualise-%{vmajor}
+%attr(755,root,root) %{_libdir}/libgstapp-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstapp-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgstaudio-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstaudio-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgstfft-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstfft-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgstpbutils-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstpbutils-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgstriff-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstriff-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgstrtp-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstrtp-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgstrtsp-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstrtsp-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgstsdp-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstsdp-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgsttag-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgsttag-%{vmajor}.so.0
+%attr(755,root,root) %{_libdir}/libgstvideo-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstvideo-%{vmajor}.so.0
+%{_mandir}/man1/gst-visualise-%{vmajor}.1*
 # plugins with no external dependencies
 %attr(755,root,root) %{gstlibdir}/libgstapp.so
 %attr(755,root,root) %{gstlibdir}/libgstaudioconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
-%attr(755,root,root) %{gstlibdir}/libgstdecodebin2.so
-%attr(755,root,root) %{gstlibdir}/libgstdecodebin.so
 %attr(755,root,root) %{gstlibdir}/libgstencodebin.so
-%attr(755,root,root) %{gstlibdir}/libgstffmpegcolorspace.so
 %attr(755,root,root) %{gstlibdir}/libgstgdp.so
 %attr(755,root,root) %{gstlibdir}/libgstgio.so
-%attr(755,root,root) %{gstlibdir}/libgstplaybin.so
+%attr(755,root,root) %{gstlibdir}/libgstplayback.so
 %attr(755,root,root) %{gstlibdir}/libgstsubparse.so
 %attr(755,root,root) %{gstlibdir}/libgsttcp.so
 %attr(755,root,root) %{gstlibdir}/libgsttypefindfunctions.so
+%attr(755,root,root) %{gstlibdir}/libgstvideoconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstvideorate.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
 %attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
-%{_libdir}/girepository-1.0/GstApp-0.10.typelib
-%{_libdir}/girepository-1.0/GstAudio-0.10.typelib
-%{_libdir}/girepository-1.0/GstFft-0.10.typelib
-%{_libdir}/girepository-1.0/GstInterfaces-0.10.typelib
-%{_libdir}/girepository-1.0/GstNetbuffer-0.10.typelib
-%{_libdir}/girepository-1.0/GstPbutils-0.10.typelib
-%{_libdir}/girepository-1.0/GstRiff-0.10.typelib
-%{_libdir}/girepository-1.0/GstRtp-0.10.typelib
-%{_libdir}/girepository-1.0/GstRtsp-0.10.typelib
-%{_libdir}/girepository-1.0/GstSdp-0.10.typelib
-%{_libdir}/girepository-1.0/GstTag-0.10.typelib
-%{_libdir}/girepository-1.0/GstVideo-0.10.typelib
+%{_libdir}/girepository-1.0/GstApp-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstAudio-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstFft-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstPbutils-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstRiff-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstRtp-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstRtsp-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstSdp-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstTag-%{vmajor}.typelib
+%{_libdir}/girepository-1.0/GstVideo-%{vmajor}.typelib
 %{_datadir}/gst-plugins-base
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgstapp-*.so
-%attr(755,root,root) %{_libdir}/libgstaudio-*.so
-%attr(755,root,root) %{_libdir}/libgstcdda-*.so
-%attr(755,root,root) %{_libdir}/libgstfft-*.so
-%attr(755,root,root) %{_libdir}/libgstinterfaces-*.so
-%attr(755,root,root) %{_libdir}/libgstnetbuffer-*.so
-%attr(755,root,root) %{_libdir}/libgstpbutils-*.so
-%attr(755,root,root) %{_libdir}/libgstriff-*.so
-%attr(755,root,root) %{_libdir}/libgstrtp-*.so
-%attr(755,root,root) %{_libdir}/libgstrtsp-*.so
-%attr(755,root,root) %{_libdir}/libgstsdp-*.so
-%attr(755,root,root) %{_libdir}/libgsttag-*.so
-%attr(755,root,root) %{_libdir}/libgstvideo-*.so
-%{_libdir}/libgstapp-*.la
-%{_libdir}/libgstaudio-*.la
-%{_libdir}/libgstcdda-*.la
-%{_libdir}/libgstfft-*.la
-%{_libdir}/libgstinterfaces-*.la
-%{_libdir}/libgstnetbuffer-*.la
-%{_libdir}/libgstpbutils-*.la
-%{_libdir}/libgstriff-*.la
-%{_libdir}/libgstrtp-*.la
-%{_libdir}/libgstrtsp-*.la
-%{_libdir}/libgstsdp-*.la
-%{_libdir}/libgsttag-*.la
-%{_libdir}/libgstvideo-*.la
+%attr(755,root,root) %{_libdir}/libgstapp-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgstaudio-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgstfft-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgstpbutils-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgstriff-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgstrtp-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgstrtsp-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgstsdp-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgsttag-%{vmajor}.so
+%attr(755,root,root) %{_libdir}/libgstvideo-%{vmajor}.so
+%{_libdir}/libgstapp-%{vmajor}.la
+%{_libdir}/libgstaudio-%{vmajor}.la
+%{_libdir}/libgstfft-%{vmajor}.la
+%{_libdir}/libgstpbutils-%{vmajor}.la
+%{_libdir}/libgstriff-%{vmajor}.la
+%{_libdir}/libgstrtp-%{vmajor}.la
+%{_libdir}/libgstrtsp-%{vmajor}.la
+%{_libdir}/libgstsdp-%{vmajor}.la
+%{_libdir}/libgsttag-%{vmajor}.la
+%{_libdir}/libgstvideo-%{vmajor}.la
 %{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
-%{gstincludedir}/gst/cdda
 %{gstincludedir}/gst/fft
-%{gstincludedir}/gst/floatcast
-%{gstincludedir}/gst/interfaces
-%{gstincludedir}/gst/netbuffer
 %{gstincludedir}/gst/pbutils
 %{gstincludedir}/gst/riff
 %{gstincludedir}/gst/rtp
@@ -450,39 +407,33 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/sdp
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
-%{_pkgconfigdir}/gstreamer-app-0.10.pc
-%{_pkgconfigdir}/gstreamer-audio-0.10.pc
-%{_pkgconfigdir}/gstreamer-cdda-0.10.pc
-%{_pkgconfigdir}/gstreamer-fft-0.10.pc
-%{_pkgconfigdir}/gstreamer-floatcast-0.10.pc
-%{_pkgconfigdir}/gstreamer-interfaces-0.10.pc
-%{_pkgconfigdir}/gstreamer-netbuffer-0.10.pc
-%{_pkgconfigdir}/gstreamer-pbutils-0.10.pc
-%{_pkgconfigdir}/gstreamer-plugins-base-0.10.pc
-%{_pkgconfigdir}/gstreamer-riff-0.10.pc
-%{_pkgconfigdir}/gstreamer-rtp-0.10.pc
-%{_pkgconfigdir}/gstreamer-rtsp-0.10.pc
-%{_pkgconfigdir}/gstreamer-sdp-0.10.pc
-%{_pkgconfigdir}/gstreamer-tag-0.10.pc
-%{_pkgconfigdir}/gstreamer-video-0.10.pc
-%{_datadir}/gir-1.0/GstApp-0.10.gir
-%{_datadir}/gir-1.0/GstAudio-0.10.gir
-%{_datadir}/gir-1.0/GstFft-0.10.gir
-%{_datadir}/gir-1.0/GstInterfaces-0.10.gir
-%{_datadir}/gir-1.0/GstNetbuffer-0.10.gir
-%{_datadir}/gir-1.0/GstPbutils-0.10.gir
-%{_datadir}/gir-1.0/GstRiff-0.10.gir
-%{_datadir}/gir-1.0/GstRtp-0.10.gir
-%{_datadir}/gir-1.0/GstRtsp-0.10.gir
-%{_datadir}/gir-1.0/GstSdp-0.10.gir
-%{_datadir}/gir-1.0/GstTag-0.10.gir
-%{_datadir}/gir-1.0/GstVideo-0.10.gir
+%{_pkgconfigdir}/gstreamer-app-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-audio-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-fft-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-pbutils-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-plugins-base-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-riff-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-rtp-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-rtsp-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-sdp-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-tag-%{vmajor}.pc
+%{_pkgconfigdir}/gstreamer-video-%{vmajor}.pc
+%{_datadir}/gir-1.0/GstApp-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstAudio-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstFft-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstPbutils-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstRiff-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstRtp-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstRtsp-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstSdp-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstTag-%{vmajor}.gir
+%{_datadir}/gir-1.0/GstVideo-%{vmajor}.gir
 
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/gst-plugins-base-libs-*
-%{_gtkdocdir}/gst-plugins-base-plugins-*
+%{_gtkdocdir}/gst-plugins-base-libs-%{vmajor}
+%{_gtkdocdir}/gst-plugins-base-plugins-%{vmajor}
 %endif
 
 ##
@@ -502,12 +453,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gstreamer-cdparanoia
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgstcdparanoia.so
-
-%if %{with gnomevfs}
-%files -n gstreamer-gnomevfs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstgnomevfs.so
-%endif
 
 %if %{with libvisual}
 %files -n gstreamer-libvisual
