@@ -5,7 +5,7 @@
 %bcond_with	v4l1		# Video4Linux 1 plugin (for Linux < 2.6.35 or so)
 
 %define		gstname		gst-plugins-base
-%define		vmajor      1.0
+%define		vmajor		1.0
 %define		gst_req_ver	1.0.0
 
 Summary:	GStreamer Streaming-media framework base plugins
@@ -27,7 +27,7 @@ BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 1.31.1
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gtk+3-devel >= 3.0.0
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.6}
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.12}
 BuildRequires:	iso-codes
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
@@ -167,7 +167,7 @@ Summary:	GStreamer base audio effects plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki efektów dźwiękowych do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	orc >= 0.4.11
+Requires:	orc >= 0.4.16
 Obsoletes:	gstreamer-audio-effects
 
 %description -n gstreamer-audio-effects-base
@@ -208,6 +208,7 @@ Summary:	GStreamer pango plugins
 Summary(pl.UTF-8):	Wtyczki pango do GStreamera
 Group:		Libraries
 Requires:	gstreamer >= %{gst_req_ver}
+Requires:	pango >= 1:1.22.0
 
 %description -n gstreamer-pango
 This package contains textoverlay and timeoverlay GStreamer plugins.
@@ -310,7 +311,8 @@ rm -rf $RPM_BUILD_ROOT
 
 # We don't need plugins' *.la files
 %{__rm} $RPM_BUILD_ROOT%{gstlibdir}/*.la
-# *.la for libs kept - no .private dependencies in *.pc
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgst*.la
 
 %find_lang %{gstname}-%{vmajor}
 
@@ -384,16 +386,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstsdp-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgsttag-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstvideo-%{vmajor}.so
-%{_libdir}/libgstapp-%{vmajor}.la
-%{_libdir}/libgstaudio-%{vmajor}.la
-%{_libdir}/libgstfft-%{vmajor}.la
-%{_libdir}/libgstpbutils-%{vmajor}.la
-%{_libdir}/libgstriff-%{vmajor}.la
-%{_libdir}/libgstrtp-%{vmajor}.la
-%{_libdir}/libgstrtsp-%{vmajor}.la
-%{_libdir}/libgstsdp-%{vmajor}.la
-%{_libdir}/libgsttag-%{vmajor}.la
-%{_libdir}/libgstvideo-%{vmajor}.la
 %{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
 %{gstincludedir}/gst/fft
