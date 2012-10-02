@@ -57,13 +57,16 @@ BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.32
 Requires:	gstreamer >= %{gst_req_ver}
 Suggests:	iso-codes
+# here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-artsd
 Obsoletes:	gstreamer-audio-effects
 Obsoletes:	gstreamer-audiofile
+Obsoletes:	gstreamer-audiosink-esd
 Obsoletes:	gstreamer-avi
 Obsoletes:	gstreamer-cdplayer
 Obsoletes:	gstreamer-colorspace
 Obsoletes:	gstreamer-festival
+Obsoletes:	gstreamer-hal
 Obsoletes:	gstreamer-interfaces
 Obsoletes:	gstreamer-interleave
 Obsoletes:	gstreamer-kio
