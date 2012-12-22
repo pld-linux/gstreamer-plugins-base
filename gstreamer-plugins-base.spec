@@ -11,12 +11,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.0.3
+Version:	1.0.4
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	de7f38c4baa6b7022578f06710e1ebf9
+# Source0-md5:	3ee91b59cb23632e5a0aa8d36bb5c129
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.11
@@ -36,6 +36,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	python >= 2.1
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+BuildRequires:	zlib-devel
 ##
 ## plugins
 ##
@@ -51,7 +52,6 @@ BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
-BuildRequires:	zlib-devel
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.32
