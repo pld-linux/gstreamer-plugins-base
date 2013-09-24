@@ -6,17 +6,17 @@
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.0.5
+%define		gst_req_ver	1.2.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.0.10
+Version:	1.2.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	ffbca3265343cd66092b28286199b795
+# Source0-md5:	d0f7bb7f6c781be127902bff89b87c5c
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.11
@@ -329,6 +329,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README RELEASE
 %attr(755,root,root) %{_bindir}/gst-discoverer-%{vmajor}
+%attr(755,root,root) %{_bindir}/gst-play-%{vmajor}
+%attr(755,root,root) %{_libdir}/libgstallocators-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstallocators-%{vmajor}.so.0
 %attr(755,root,root) %{_libdir}/libgstapp-%{vmajor}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstapp-%{vmajor}.so.0
 %attr(755,root,root) %{_libdir}/libgstaudio-%{vmajor}.so.*.*.*
@@ -350,6 +353,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstvideo-%{vmajor}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstvideo-%{vmajor}.so.0
 %{_mandir}/man1/gst-discoverer-%{vmajor}.1*
+%{_mandir}/man1/gst-play-%{vmajor}.1*
 # plugins with no external dependencies
 %attr(755,root,root) %{gstlibdir}/libgstapp.so
 %attr(755,root,root) %{gstlibdir}/libgstaudioconvert.so
@@ -365,6 +369,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvideorate.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
 %attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
+%{_libdir}/girepository-1.0/GstAllocators-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstApp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstAudio-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstFft-%{vmajor}.typelib
@@ -379,6 +384,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgstallocators-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstapp-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstaudio-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstfft-%{vmajor}.so
@@ -389,6 +395,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstsdp-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgsttag-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstvideo-%{vmajor}.so
+%{gstincludedir}/gst/allocators
 %{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
 %{gstincludedir}/gst/fft
@@ -399,6 +406,7 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/sdp
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
+%{_pkgconfigdir}/gstreamer-allocators-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-app-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-audio-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-fft-%{vmajor}.pc
@@ -410,6 +418,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/gstreamer-sdp-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-tag-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-video-%{vmajor}.pc
+%{_datadir}/gir-1.0/GstAllocators-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstApp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstAudio-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstFft-%{vmajor}.gir
