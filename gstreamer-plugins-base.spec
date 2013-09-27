@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_without	apidocs		# disable gtk-doc
 %bcond_without	libvisual	# don't build libvisual plugin
+%bcond_without	tremor		# ivorbisdec plugin (Tremor integer Ogg Vorbis decoder)
 %bcond_with	v4l1		# Video4Linux 1 plugin (for Linux < 2.6.35 or so)
 
 %define		gstname		gst-plugins-base
@@ -18,7 +19,7 @@ Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
 # Source0-md5:	d0f7bb7f6c781be127902bff89b87c5c
 URL:		http://gstreamer.freedesktop.org/
-BuildRequires:	autoconf >= 2.62
+BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake >= 1:1.11
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-devel >= 0.17
@@ -31,7 +32,7 @@ BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	iso-codes
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	orc-devel >= 0.4.16
+BuildRequires:	orc-devel >= 0.4.18
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2.1
 BuildRequires:	tar >= 1:1.22
@@ -49,6 +50,7 @@ BuildRequires:	libtheora-devel >= 1.1
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	pango-devel >= 1:1.22.0
 BuildRequires:	rpmbuild(macros) >= 1.98
+%{?with_tremor:BuildRequires:	tremor-devel}
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
@@ -170,7 +172,7 @@ Summary:	GStreamer base audio effects plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki efektów dźwiękowych do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	orc >= 0.4.16
+Requires:	orc >= 0.4.18
 Obsoletes:	gstreamer-audio-effects
 
 %description -n gstreamer-audio-effects-base
@@ -186,6 +188,7 @@ Group:		Libraries
 #Requires:	gstreamer >= %{gst_req_ver}
 # for locales
 Requires:	%{name} = %{version}-%{release}
+Requires:	cdparanoia-III-libs >= 2:10.2
 
 %description -n gstreamer-cdparanoia
 Plugin for ripping audio tracks using cdparanoia under GStreamer.
@@ -193,6 +196,19 @@ Plugin for ripping audio tracks using cdparanoia under GStreamer.
 %description -n gstreamer-cdparanoia -l pl.UTF-8
 Wtyczka do ripowania ścieżek dźwiękowych pod GStreamerem za pomocą
 cdparanoia.
+
+%package -n gstreamer-ivorbisdec
+Summary:	GStreamer plugin for decoding Ogg Vorbis audio files using Tremor
+Summary(pl.UTF-8):	Wtyczka GStreamera dekodująca pliki dźwiękowe Ogg Vorbis (przy użyciu Tremora)
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description -n gstreamer-ivorbisdec
+Plugin for playing Ogg Vorbis audio files using Tremor.
+
+%description -n gstreamer-ivorbisdec -l pl.UTF-8
+Wtyczka do odtwarzania plików dźwiękowych Ogg Vorbis przy użyciu
+Tremora.
 
 %package -n gstreamer-libvisual
 Summary:	GStreamer libvisual plugin
@@ -249,8 +265,6 @@ Wtyczka GStreamera dla źródła Video 4 Linux.
 Summary:	GStreamer plugin for encoding and decoding Ogg Vorbis audio files
 Summary(pl.UTF-8):	Wtyczki do GStreamera kodujące i dekodujące pliki dźwiękowe Ogg Vorbis
 Group:		Libraries
-#Requires:	gstreamer >= %{gst_req_ver}
-# for locales in ogg module
 Requires:	%{name} = %{version}-%{release}
 
 %description -n gstreamer-vorbis
@@ -295,6 +309,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %{__autoheader}
 %{__automake}
 %configure \
+	%{!?with_tremor:--disable-ivorbis} \
 	%{!?with_libvisual:--disable-libvisual} \
 	--disable-examples \
 	--disable-silent-rules \
@@ -454,6 +469,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gstreamer-cdparanoia
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgstcdparanoia.so
+
+%if %{with tremor}
+%files -n gstreamer-ivorbisdec
+%defattr(644,root,root,755)
+%attr(755,root,root) %{gstlibdir}/libgstivorbisdec.so
+%endif
 
 %if %{with libvisual}
 %files -n gstreamer-libvisual
