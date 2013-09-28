@@ -77,6 +77,7 @@ Obsoletes:	gstreamer-libfame
 Obsoletes:	gstreamer-media-info
 Obsoletes:	gstreamer-mikmod
 Obsoletes:	gstreamer-misc
+Obsoletes:	gstreamer-musicbrainz
 Obsoletes:	gstreamer-oneton
 Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
