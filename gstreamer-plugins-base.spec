@@ -82,6 +82,7 @@ Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
 Obsoletes:	gstreamer-qcam
 Obsoletes:	gstreamer-snapshot
+Obsoletes:	gstreamer-swfdec
 Obsoletes:	gstreamer-tcp
 Obsoletes:	gstreamer-tuner
 Obsoletes:	gstreamer-v4l
