@@ -7,17 +7,17 @@
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.2.0
+%define		gst_req_ver	1.4.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.2.4
+Version:	1.4.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	278e0a1872ecb981e91830b2cb7f3e98
+# Source0-md5:	1ff06280b03b9098a706d1290d8bb3bd
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake >= 1:1.11
@@ -345,6 +345,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{gstname}-%{vmajor}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README RELEASE
+%attr(755,root,root) %{_bindir}/gst-device-monitor-%{vmajor}
 %attr(755,root,root) %{_bindir}/gst-discoverer-%{vmajor}
 %attr(755,root,root) %{_bindir}/gst-play-%{vmajor}
 %attr(755,root,root) %{_libdir}/libgstallocators-%{vmajor}.so.*.*.*
@@ -369,6 +370,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libgsttag-%{vmajor}.so.0
 %attr(755,root,root) %{_libdir}/libgstvideo-%{vmajor}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstvideo-%{vmajor}.so.0
+%{_mandir}/man1/gst-device-monitor-%{vmajor}.1*
 %{_mandir}/man1/gst-discoverer-%{vmajor}.1*
 %{_mandir}/man1/gst-play-%{vmajor}.1*
 # plugins with no external dependencies
