@@ -22,7 +22,7 @@ URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake >= 1:1.11
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
-BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.32
 BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 1.31.1
