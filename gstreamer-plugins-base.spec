@@ -7,33 +7,33 @@
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.4.0
+%define		gst_req_ver	1.6.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.4.5
-Release:	2
+Version:	1.6.0
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	357165af625c0ca353ab47c5d843920e
+# Source0-md5:	3c223f1d2716e1861ba84287ea02b164
 URL:		http://gstreamer.freedesktop.org/
-BuildRequires:	autoconf >= 2.68
-BuildRequires:	automake >= 1:1.11
+BuildRequires:	autoconf >= 2.69
+BuildRequires:	automake >= 1:1.14
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.32
 BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 1.31.1
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gtk+3-devel >= 3.0.0
+BuildRequires:	gtk+3-devel >= 3.10
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.12}
 BuildRequires:	iso-codes
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	orc-devel >= 0.4.18
-BuildRequires:	pkgconfig
+BuildRequires:	orc-devel >= 0.4.23
+BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python >= 2.1
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -58,6 +58,7 @@ BuildRequires:	xorg-lib-libXv-devel
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.32
 Requires:	gstreamer >= %{gst_req_ver}
+Requires:	orc >= 0.4.23
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-artsd
@@ -174,7 +175,6 @@ Summary:	GStreamer base audio effects plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki efektów dźwiękowych do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	orc >= 0.4.18
 Obsoletes:	gstreamer-audio-effects
 
 %description -n gstreamer-audio-effects-base
@@ -187,8 +187,6 @@ Podstawowe wtyczki efektów dźwiękowych do GStreamera.
 Summary:	GStreamer plugin for CD audio input using CDParanoia IV
 Summary(pl.UTF-8):	Wtyczka do GStreamera odtwarzająca płyty CD-Audio przy użyciu CDParanoia IV
 Group:		Libraries
-#Requires:	gstreamer >= %{gst_req_ver}
-# for locales
 Requires:	%{name} = %{version}-%{release}
 Requires:	cdparanoia-III-libs >= 2:10.2
 
@@ -216,7 +214,8 @@ Tremora.
 Summary:	GStreamer libvisual plugin
 Summary(pl.UTF-8):	Wtyczka libvisual do GStreamera
 Group:		Libraries
-Requires:	gstreamer >= %{gst_req_ver}
+Requires:	%{name} = %{version}-%{release}
+Requires:	libvisual >= 0.4.0
 
 %description -n gstreamer-libvisual
 GStreamer libvisual plugin.
@@ -228,7 +227,7 @@ Wtyczka libvisual do GStreamera.
 Summary:	GStreamer pango plugins
 Summary(pl.UTF-8):	Wtyczki pango do GStreamera
 Group:		Libraries
-Requires:	gstreamer >= %{gst_req_ver}
+Requires:	%{name} = %{version}-%{release}
 Requires:	pango >= 1:1.22.0
 
 %description -n gstreamer-pango
@@ -241,7 +240,7 @@ Ten pakiet zawiera wtyczki textoverlay i timeoverlay do GStreamera.
 Summary:	GStreamer Ogg Theora plugin
 Summary(pl.UTF-8):	Wtyczka Ogg Theora do GStreamera
 Group:		Libraries
-Requires:	gstreamer >= %{gst_req_ver}
+Requires:	%{name} = %{version}-%{release}
 Requires:	libtheora >= 1.1
 
 %description -n gstreamer-theora
@@ -393,7 +392,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/girepository-1.0/GstAudio-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstFft-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstPbutils-%{vmajor}.typelib
-%{_libdir}/girepository-1.0/GstRiff-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstRtp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstRtsp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstSdp-%{vmajor}.typelib
@@ -442,7 +440,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gir-1.0/GstAudio-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstFft-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstPbutils-%{vmajor}.gir
-%{_datadir}/gir-1.0/GstRiff-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstRtp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstRtsp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstSdp-%{vmajor}.gir
