@@ -79,6 +79,7 @@ Obsoletes:	gstreamer-media-info
 Obsoletes:	gstreamer-mikmod
 Obsoletes:	gstreamer-misc
 Obsoletes:	gstreamer-musicbrainz
+Obsoletes:	gstreamer-mythtv
 Obsoletes:	gstreamer-oneton
 Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
