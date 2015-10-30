@@ -7,17 +7,17 @@
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.6.0
+%define		gst_req_ver	1.6.1
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.6.0
+Version:	1.6.1
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	3c223f1d2716e1861ba84287ea02b164
+# Source0-md5:	a89933afbe45d8f8c92d89c2f1199ecb
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
