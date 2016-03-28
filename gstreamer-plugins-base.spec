@@ -7,23 +7,23 @@
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.6.3
+%define		gst_req_ver	1.8.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.6.3
+Version:	1.8.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	3ddde0ad598ef69f58d6a2e87f8b460f
+# Source0-md5:	20cc8231609318310f2a55f64c86cbb4
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
-BuildRequires:	glib2-devel >= 1:2.32
+BuildRequires:	glib2-devel >= 1:2.40
 BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 1.31.1
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
@@ -43,11 +43,11 @@ BuildRequires:	zlib-devel
 ##
 BuildRequires:	alsa-lib-devel >= 1.0.11
 BuildRequires:	cdparanoia-III-devel >= 2:10.2
-BuildRequires:	freetype-devel >= 2.1.2
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libtheora-devel >= 1.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
 BuildRequires:	libvorbis-devel >= 1:1.0
+BuildRequires:	opus-devel >= 0.9.4
 BuildRequires:	pango-devel >= 1:1.22.0
 BuildRequires:	rpmbuild(macros) >= 1.98
 %{?with_tremor:BuildRequires:	tremor-devel}
@@ -56,7 +56,7 @@ BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.32
+Requires:	glib2 >= 1:2.40
 Requires:	gstreamer >= %{gst_req_ver}
 Requires:	orc >= 0.4.23
 Suggests:	iso-codes
@@ -223,6 +223,21 @@ GStreamer libvisual plugin.
 
 %description -n gstreamer-libvisual -l pl.UTF-8
 Wtyczka libvisual do GStreamera.
+
+%package -n gstreamer-opus
+Summary:	GStreamer OPUS plugins
+Summary(pl.UTF-8):	Wtyczki OPUS do GStreamera
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	opus >= 0.9.4
+
+%description -n gstreamer-opus
+This package contains GStreamer plugins encoding/decoding OPUS codec
+streams.
+
+%description -n gstreamer-opus -l pl.UTF-8
+Ten pakiet zawiera wtyczki do GStreamera obsługujące strumienie kodeka
+OPUS.
 
 %package -n gstreamer-pango
 Summary:	GStreamer pango plugins
@@ -483,6 +498,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgstlibvisual.so
 %endif
+
+%files -n gstreamer-opus
+%defattr(644,root,root,755)
+%attr(755,root,root) %{gstlibdir}/libgstopus.so
 
 %files -n gstreamer-pango
 %defattr(644,root,root,755)
