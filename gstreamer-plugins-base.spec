@@ -12,18 +12,18 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.8.2
+Version:	1.8.3
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	f55254ca18b845a9a7d8fe671bc09c24
+# Source0-md5:	4d03dd81828ea6b98a44c8f1ab7f4976
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
-BuildRequires:	glib2-devel >= 1:2.40
+BuildRequires:	glib2-devel >= 1:2.40.0
 BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 1.31.1
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
@@ -56,7 +56,7 @@ BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.40
+Requires:	glib2 >= 1:2.40.0
 Requires:	gstreamer >= %{gst_req_ver}
 Requires:	orc >= 0.4.23
 Suggests:	iso-codes
@@ -122,7 +122,7 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.32
+Requires:	glib2-devel >= 1:2.40.0
 Requires:	gstreamer-devel >= %{gst_req_ver}
 Obsoletes:	gstreamer-interfaces-devel
 Obsoletes:	gstreamer-media-info-devel
