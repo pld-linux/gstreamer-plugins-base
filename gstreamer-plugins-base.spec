@@ -7,17 +7,17 @@
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.10.0
+%define		gst_req_ver	1.12.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.10.2
+Version:	1.12.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	8efa9e9ad9a841a900359604da82fb8b
+# Source0-md5:	f34fc5630f9db0db53172fcf3b955e01
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -32,7 +32,7 @@ BuildRequires:	gtk+3-devel >= 3.10
 BuildRequires:	iso-codes
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	orc-devel >= 0.4.23
+BuildRequires:	orc-devel >= 0.4.24
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python >= 2.1
 BuildRequires:	tar >= 1:1.22
@@ -58,7 +58,7 @@ BuildRequires:	xorg-lib-libXv-devel
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.40.0
 Requires:	gstreamer >= %{gst_req_ver}
-Requires:	orc >= 0.4.23
+Requires:	orc >= 0.4.24
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-artsd
@@ -396,9 +396,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudioconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
-%attr(755,root,root) %{gstlibdir}/libgstencodebin.so
+%attr(755,root,root) %{gstlibdir}/libgstencoding.so
 %attr(755,root,root) %{gstlibdir}/libgstgio.so
+%attr(755,root,root) %{gstlibdir}/libgstpbtypes.so
 %attr(755,root,root) %{gstlibdir}/libgstplayback.so
+%attr(755,root,root) %{gstlibdir}/libgstrawparse.so
 %attr(755,root,root) %{gstlibdir}/libgstsubparse.so
 %attr(755,root,root) %{gstlibdir}/libgsttcp.so
 %attr(755,root,root) %{gstlibdir}/libgsttypefindfunctions.so
