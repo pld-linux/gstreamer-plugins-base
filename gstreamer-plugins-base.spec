@@ -96,6 +96,7 @@ Obsoletes:	gstreamer-xine
 Obsoletes:	gstreamer-xoverlay
 Obsoletes:	gstreamer-yuv4mjpeg
 Obsoletes:	gtk-loaders-gstreamer
+Conflicts:	gstreamer-plugins-bad < 1.12.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		gstlibdir 	%{_libdir}/gstreamer-%{vmajor}
