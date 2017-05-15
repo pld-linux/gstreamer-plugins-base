@@ -77,6 +77,7 @@ Obsoletes:	gstreamer-libdvdnav
 Obsoletes:	gstreamer-libfame
 Obsoletes:	gstreamer-media-info
 Obsoletes:	gstreamer-mikmod
+Obsoletes:	gstreamer-mimic
 Obsoletes:	gstreamer-misc
 Obsoletes:	gstreamer-musicbrainz
 Obsoletes:	gstreamer-mythtv
