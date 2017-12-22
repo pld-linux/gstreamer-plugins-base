@@ -12,18 +12,21 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.12.2
+Version:	1.12.4
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	77f5379c4ca677616b415e3b3ff95578
+# Source0-md5:	b35b04071f69b8ab69a7f3a497ff0131
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.40.0
+%if %(locale -a | grep -q '^C.UTF-8$'; echo $?)
+BuildRequires:	glibc-localedb-all
+%endif
 BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 1.31.1
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
@@ -341,6 +344,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 	--enable-orc \
 	--with-html-dir=%{_gtkdocdir}
 
+LC_ALL=C.UTF-8 \
 %{__make}
 
 %install
