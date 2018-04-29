@@ -7,17 +7,17 @@
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.12.0
+%define		gst_req_ver	1.14.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.12.4
-Release:	1
+Version:	1.14.0
+Release:	0.1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	b35b04071f69b8ab69a7f3a497ff0131
+# Source0-md5:	370271327dd23110421a9c2927ac989a
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -417,7 +417,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/girepository-1.0/GstAllocators-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstApp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstAudio-%{vmajor}.typelib
-%{_libdir}/girepository-1.0/GstFft-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstPbutils-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstRtp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstRtsp-%{vmajor}.typelib
@@ -465,7 +464,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gir-1.0/GstAllocators-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstApp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstAudio-%{vmajor}.gir
-%{_datadir}/gir-1.0/GstFft-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstPbutils-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstRtp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstRtsp-%{vmajor}.gir
