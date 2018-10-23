@@ -1,23 +1,24 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# disable gtk-doc
+%bcond_without	apidocs		# disable gtk-doc (requires opengl library enabled)
 %bcond_without	libvisual	# don't build libvisual plugin
+%bcond_without	opengl		# OpenGL support (gstgl library and opengl plugin)
 %bcond_without	tremor		# ivorbisdec plugin (Tremor integer Ogg Vorbis decoder)
 %bcond_with	v4l1		# Video4Linux 1 plugin (for Linux < 2.6.35 or so)
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.14.3
+%define		gst_req_ver	1.14.4
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.14.3
+Version:	1.14.4
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	2ba8eaef8a249c0fddb37f21e2912e16
+# Source0-md5:	4dbe20c1bf44191c2b8833234df5cb2a
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -57,11 +58,31 @@ BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
+%if %{with opengl}
+BuildRequires:	EGL-devel
+BuildRequires:	Mesa-libgbm-devel
+BuildRequires:	OpenGL-GLX-devel
+# examples only: clutter clutter-glx clutter-x11
+#BuildRequires:	SDL-devel >= 1.2.0 clutter-devel >= 1.8 xorg-lib-libXcomposite-devel
+BuildRequires:	graphene-devel >= 1.4.0
+BuildRequires:	libdrm-devel >= 2.4.55
+BuildRequires:	libpng-devel >= 1.0
+BuildRequires:	libjpeg-devel
+# wayland-client, wayland-cursor
+BuildRequires:	wayland-devel >= 1.0
+BuildRequires:	wayland-egl-devel
+%endif
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.40.0
 Requires:	gstreamer >= %{gst_req_ver}
 Requires:	orc >= 0.4.24
+%if %{with opengl}
+Requires:	graphene >= 1.4.0
+Requires:	libdrm >= 2.4.55
+Requires:	libpng >= 1.0
+Requires:	wayland >= 1.0
+%endif
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-artsd
@@ -85,7 +106,7 @@ Obsoletes:	gstreamer-misc
 Obsoletes:	gstreamer-musicbrainz
 Obsoletes:	gstreamer-mythtv
 Obsoletes:	gstreamer-oneton
-Obsoletes:	gstreamer-opengl
+Obsoletes:	gstreamer-opengl < 1.14
 Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
 Obsoletes:	gstreamer-qcam
@@ -335,9 +356,11 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-examples \
+	%{!?with_opengl:--disable-egl} \
 	%{!?with_tremor:--disable-ivorbis} \
 	%{!?with_libvisual:--disable-libvisual} \
-	--disable-examples \
+	%{!?with_opengl:--disable-opengl} \
 	--disable-silent-rules \
 	--disable-static \
 	--enable-experimental \
@@ -381,8 +404,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libgstaudio-%{vmajor}.so.0
 %attr(755,root,root) %{_libdir}/libgstfft-%{vmajor}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstfft-%{vmajor}.so.0
+%if %{with opengl}
 %attr(755,root,root) %{_libdir}/libgstgl-%{vmajor}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstgl-%{vmajor}.so.0
+%endif
 %attr(755,root,root) %{_libdir}/libgstpbutils-%{vmajor}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstpbutils-%{vmajor}.so.0
 %attr(755,root,root) %{_libdir}/libgstriff-%{vmajor}.so.*.*.*
@@ -408,7 +433,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstencoding.so
 %attr(755,root,root) %{gstlibdir}/libgstgio.so
+%if %{with opengl}
 %attr(755,root,root) %{gstlibdir}/libgstopengl.so
+%endif
 %attr(755,root,root) %{gstlibdir}/libgstpbtypes.so
 %attr(755,root,root) %{gstlibdir}/libgstplayback.so
 %attr(755,root,root) %{gstlibdir}/libgstrawparse.so
@@ -422,7 +449,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/girepository-1.0/GstAllocators-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstApp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstAudio-%{vmajor}.typelib
+%if %{with opengl}
 %{_libdir}/girepository-1.0/GstGL-%{vmajor}.typelib
+%endif
 %{_libdir}/girepository-1.0/GstPbutils-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstRtp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstRtsp-%{vmajor}.typelib
@@ -437,7 +466,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstapp-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstaudio-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstfft-%{vmajor}.so
+%if %{with opengl}
 %attr(755,root,root) %{_libdir}/libgstgl-%{vmajor}.so
+%endif
 %attr(755,root,root) %{_libdir}/libgstpbutils-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstriff-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstrtp-%{vmajor}.so
@@ -445,12 +476,19 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstsdp-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgsttag-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstvideo-%{vmajor}.so
-%{gstlibdir}/include
+%if %{with opengl}
+# currently only gl lib provides header in this place
+%dir %{gstlibdir}/include
+%dir %{gstlibdir}/include/gst
+%{gstlibdir}/include/gst/gl
+%endif
 %{gstincludedir}/gst/allocators
 %{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
 %{gstincludedir}/gst/fft
+%if %{with opengl}
 %{gstincludedir}/gst/gl
+%endif
 %{gstincludedir}/gst/pbutils
 %{gstincludedir}/gst/riff
 %{gstincludedir}/gst/rtp
@@ -462,7 +500,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/gstreamer-app-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-audio-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-fft-%{vmajor}.pc
+%if %{with opengl}
 %{_pkgconfigdir}/gstreamer-gl-%{vmajor}.pc
+%endif
 %{_pkgconfigdir}/gstreamer-pbutils-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-plugins-base-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-riff-%{vmajor}.pc
@@ -474,7 +514,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gir-1.0/GstAllocators-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstApp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstAudio-%{vmajor}.gir
+%if %{with opengl}
 %{_datadir}/gir-1.0/GstGL-%{vmajor}.gir
+%endif
 %{_datadir}/gir-1.0/GstPbutils-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstRtp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstRtsp-%{vmajor}.gir
