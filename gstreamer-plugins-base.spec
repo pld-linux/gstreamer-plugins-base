@@ -77,12 +77,6 @@ BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.40.0
 Requires:	gstreamer >= %{gst_req_ver}
 Requires:	orc >= 0.4.24
-%if %{with opengl}
-Requires:	graphene >= 1.4.0
-Requires:	libdrm >= 2.4.55
-Requires:	libpng >= 1.0
-Requires:	wayland >= 1.0
-%endif
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-artsd
@@ -106,7 +100,6 @@ Obsoletes:	gstreamer-misc
 Obsoletes:	gstreamer-musicbrainz
 Obsoletes:	gstreamer-mythtv
 Obsoletes:	gstreamer-oneton
-Obsoletes:	gstreamer-opengl < 1.14
 Obsoletes:	gstreamer-play
 Obsoletes:	gstreamer-plugins
 Obsoletes:	gstreamer-qcam
@@ -180,6 +173,38 @@ GStreamer streaming-media framework plugins API documentation.
 
 %description apidocs -l pl.UTF-8
 Dokumentacja API wtyczek środowiska obróbki strumieni GStreamer.
+
+%package -n gstreamer-gl-libs
+Summary:	GStreamer OpenGL plugins library
+Summary(pl.UTF-8):	Biblioteka wtyczek OpenGL dla GStreamera
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	graphene >= 1.4.0
+Requires:	libdrm >= 2.4.55
+Requires:	libpng >= 1.0
+Requires:	wayland >= 1.0
+Obsoletes:	gstreamer-opengl < 1.14
+
+%description -n gstreamer-gl-libs
+OpenGL plugins library for GStreamer streaming media framework,
+together with actual OpenGL plugin.
+
+%description -n gstreamer-gl-libs -l pl.UTF-8
+Biblioteka wtyczek OpenGL dla szkieletu strumieni multimedialnych
+GStreamer wraz z właściwą wtyczką OpenGL.
+
+%package -n gstreamer-gl-devel
+Summary:	Header files for GStreamer OpenGL library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GStreamera OpenGL
+Group:		Development/Libraries
+Requires:	gstreamer-gl-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description -n gstreamer-gl-devel
+Header files for GStreamer OpenGL library.
+
+%description -n gstreamer-gl-devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki GStreamera OpenGL.
 
 ##
 ## Plugins
@@ -404,10 +429,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libgstaudio-%{vmajor}.so.0
 %attr(755,root,root) %{_libdir}/libgstfft-%{vmajor}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstfft-%{vmajor}.so.0
-%if %{with opengl}
-%attr(755,root,root) %{_libdir}/libgstgl-%{vmajor}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstgl-%{vmajor}.so.0
-%endif
 %attr(755,root,root) %{_libdir}/libgstpbutils-%{vmajor}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstpbutils-%{vmajor}.so.0
 %attr(755,root,root) %{_libdir}/libgstriff-%{vmajor}.so.*.*.*
@@ -433,9 +454,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstencoding.so
 %attr(755,root,root) %{gstlibdir}/libgstgio.so
-%if %{with opengl}
-%attr(755,root,root) %{gstlibdir}/libgstopengl.so
-%endif
 %attr(755,root,root) %{gstlibdir}/libgstpbtypes.so
 %attr(755,root,root) %{gstlibdir}/libgstplayback.so
 %attr(755,root,root) %{gstlibdir}/libgstrawparse.so
@@ -449,9 +467,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/girepository-1.0/GstAllocators-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstApp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstAudio-%{vmajor}.typelib
-%if %{with opengl}
-%{_libdir}/girepository-1.0/GstGL-%{vmajor}.typelib
-%endif
 %{_libdir}/girepository-1.0/GstPbutils-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstRtp-%{vmajor}.typelib
 %{_libdir}/girepository-1.0/GstRtsp-%{vmajor}.typelib
@@ -466,9 +481,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstapp-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstaudio-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstfft-%{vmajor}.so
-%if %{with opengl}
-%attr(755,root,root) %{_libdir}/libgstgl-%{vmajor}.so
-%endif
 %attr(755,root,root) %{_libdir}/libgstpbutils-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstriff-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstrtp-%{vmajor}.so
@@ -476,19 +488,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstsdp-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgsttag-%{vmajor}.so
 %attr(755,root,root) %{_libdir}/libgstvideo-%{vmajor}.so
-%if %{with opengl}
-# currently only gl lib provides header in this place
-%dir %{gstlibdir}/include
-%dir %{gstlibdir}/include/gst
-%{gstlibdir}/include/gst/gl
-%endif
 %{gstincludedir}/gst/allocators
 %{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
 %{gstincludedir}/gst/fft
-%if %{with opengl}
-%{gstincludedir}/gst/gl
-%endif
 %{gstincludedir}/gst/pbutils
 %{gstincludedir}/gst/riff
 %{gstincludedir}/gst/rtp
@@ -500,9 +503,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/gstreamer-app-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-audio-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-fft-%{vmajor}.pc
-%if %{with opengl}
-%{_pkgconfigdir}/gstreamer-gl-%{vmajor}.pc
-%endif
 %{_pkgconfigdir}/gstreamer-pbutils-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-plugins-base-%{vmajor}.pc
 %{_pkgconfigdir}/gstreamer-riff-%{vmajor}.pc
@@ -514,9 +514,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gir-1.0/GstAllocators-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstApp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstAudio-%{vmajor}.gir
-%if %{with opengl}
-%{_datadir}/gir-1.0/GstGL-%{vmajor}.gir
-%endif
 %{_datadir}/gir-1.0/GstPbutils-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstRtp-%{vmajor}.gir
 %{_datadir}/gir-1.0/GstRtsp-%{vmajor}.gir
@@ -529,6 +526,27 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_gtkdocdir}/gst-plugins-base-libs-%{vmajor}
 %{_gtkdocdir}/gst-plugins-base-plugins-%{vmajor}
+%endif
+
+%if %{with opengl}
+%files -n gstreamer-gl-libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgstgl-%{vmajor}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgstgl-%{vmajor}.so.0
+%{_libdir}/girepository-1.0/GstGL-%{vmajor}.typelib
+# plugin itself
+%attr(755,root,root) %{gstlibdir}/libgstopengl.so
+
+%files -n gstreamer-gl-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgstgl-%{vmajor}.so
+# currently only gl lib provides header in this location, so package top dirs here
+%dir %{gstlibdir}/include
+%dir %{gstlibdir}/include/gst
+%{gstlibdir}/include/gst/gl
+%{gstincludedir}/gst/gl
+%{_datadir}/gir-1.0/GstGL-%{vmajor}.gir
+%{_pkgconfigdir}/gstreamer-gl-%{vmajor}.pc
 %endif
 
 ##
