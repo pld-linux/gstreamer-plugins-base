@@ -115,7 +115,8 @@ Obsoletes:	gstreamer-xine
 Obsoletes:	gstreamer-xoverlay
 Obsoletes:	gstreamer-yuv4mjpeg
 Obsoletes:	gtk-loaders-gstreamer
-Conflicts:	gstreamer-plugins-bad < 1.12.0
+# audiomixer plugin used to be in -plugins-bad 1.12.x
+Conflicts:	gstreamer-plugins-bad < 1.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		gstlibdir 	%{_libdir}/gstreamer-%{vmajor}
@@ -152,6 +153,8 @@ Obsoletes:	gstreamer-play-devel
 Obsoletes:	gstreamer-plugins-devel
 Obsoletes:	gstreamer-tuner-devel
 Obsoletes:	gstreamer-xoverlay-devel
+# gst/allocators/gstphysmemory.h and gst/audio/gstaudioaggregator.h existed in -plugins-bad 1.12.x
+Conflicts:	gstreamer-plugins-bad-devel < 1.14
 
 %description devel
 Include files for GStreamer streaming-media framework plugins.
