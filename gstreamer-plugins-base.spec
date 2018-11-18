@@ -186,6 +186,7 @@ Requires:	graphene >= 1.4.0
 Requires:	libdrm >= 2.4.55
 Requires:	libpng >= 1.0
 Requires:	wayland >= 1.0
+Conflicts:	gstreamer-plugins-bad < 1.14
 Obsoletes:	gstreamer-imagesink-gl
 Obsoletes:	gstreamer-opengl < 1.14
 
