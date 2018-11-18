@@ -203,6 +203,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GStreamera OpenGL
 Group:		Development/Libraries
 Requires:	gstreamer-gl-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
+Conflicts:	gstreamer-plugins-bad-devel < 1.14
 
 %description -n gstreamer-gl-devel
 Header files for GStreamer OpenGL library.
