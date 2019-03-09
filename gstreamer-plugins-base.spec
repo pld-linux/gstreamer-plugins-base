@@ -14,7 +14,7 @@ Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
 Version:	1.14.4
-Release:	2
+Release:	3
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
@@ -204,7 +204,7 @@ GStreamer wraz z właściwą wtyczką OpenGL.
 Summary:	Header files for GStreamer OpenGL library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GStreamera OpenGL
 Group:		Development/Libraries
-Requires:	gstreamer-gl-devel = %{version}-%{release}
+Requires:	gstreamer-gl-libs = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Conflicts:	gstreamer-plugins-bad-devel < 1.14
 Obsoletes:	gstreamer-plugins-gl-devel
