@@ -8,17 +8,17 @@
 
 %define		gstname		gst-plugins-base
 %define		vmajor		1.0
-%define		gst_req_ver	1.14.4
+%define		gst_req_ver	1.16.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.14.4
-Release:	3
+Version:	1.16.0
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	4dbe20c1bf44191c2b8833234df5cb2a
+# Source0-md5:	41dde92930710c75cdb49169c5cc6dfc
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -461,8 +461,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudiomixer.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
+%attr(755,root,root) %{gstlibdir}/libgstcompositor.so
 %attr(755,root,root) %{gstlibdir}/libgstencoding.so
 %attr(755,root,root) %{gstlibdir}/libgstgio.so
+%attr(755,root,root) %{gstlibdir}/libgstoverlaycomposition.so
 %attr(755,root,root) %{gstlibdir}/libgstpbtypes.so
 %attr(755,root,root) %{gstlibdir}/libgstplayback.so
 %attr(755,root,root) %{gstlibdir}/libgstrawparse.so
