@@ -14,7 +14,7 @@ Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
 Version:	1.16.0
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
@@ -116,8 +116,8 @@ Obsoletes:	gstreamer-xine
 Obsoletes:	gstreamer-xoverlay
 Obsoletes:	gstreamer-yuv4mjpeg
 Obsoletes:	gtk-loaders-gstreamer
-# audiomixer plugin used to be in -plugins-bad 1.12.x
-Conflicts:	gstreamer-plugins-bad < 1.14
+# compositor plugin used to be in -plugins-bad 1.14.x
+Conflicts:	gstreamer-plugins-bad < 1.16
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		gstlibdir 	%{_libdir}/gstreamer-%{gstmver}
@@ -154,8 +154,8 @@ Obsoletes:	gstreamer-play-devel
 Obsoletes:	gstreamer-plugins-devel
 Obsoletes:	gstreamer-tuner-devel
 Obsoletes:	gstreamer-xoverlay-devel
-# gst/allocators/gstphysmemory.h and gst/audio/gstaudioaggregator.h existed in -plugins-bad 1.12.x
-Conflicts:	gstreamer-plugins-bad-devel < 1.14
+# gst/video/gstvideoaggregator.h existed in -plugins-bad 1.14.x
+Conflicts:	gstreamer-plugins-bad-devel < 1.16
 
 %description devel
 Include files for GStreamer streaming-media framework plugins.
