@@ -87,6 +87,7 @@ Obsoletes:	gstreamer-audiosink-esd
 Obsoletes:	gstreamer-avi
 Obsoletes:	gstreamer-cdplayer
 Obsoletes:	gstreamer-colorspace
+Obsoletes:	gstreamer-daala
 Obsoletes:	gstreamer-festival
 Obsoletes:	gstreamer-hal
 Obsoletes:	gstreamer-interfaces
