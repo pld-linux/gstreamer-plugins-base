@@ -171,9 +171,7 @@ Summary(pl.UTF-8):	Dokumentacja API wtyczek środowiska obróbki strumieni GStre
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	gstreamer-plugins-gl-apidocs
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 GStreamer streaming-media framework plugins API documentation.
