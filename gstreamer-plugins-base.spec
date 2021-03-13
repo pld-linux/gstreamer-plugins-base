@@ -1,25 +1,24 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# disable gtk-doc (requires opengl library enabled)
-%bcond_without	libvisual	# don't build libvisual plugin
+%bcond_without	apidocs		# gtk-doc based API documentation (requires opengl library enabled)
+%bcond_without	libvisual	# libvisual plugin
 %bcond_without	opengl		# OpenGL support (gstgl library and opengl plugin)
 %bcond_without	tremor		# ivorbisdec plugin (Tremor integer Ogg Vorbis decoder)
 %bcond_with	v4l1		# Video4Linux 1 plugin (for Linux < 2.6.35 or so)
 
 %define		gstname		gst-plugins-base
 %define		gstmver		1.0
-%define		gst_ver		1.16.2
+%define		gst_ver		1.16.3
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.16.2
+Version:	1.16.3
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	3fdb32823535799a748c1fc14f978e2c
-Patch0:		gstreamer-make.patch
+# Source0-md5:	e3ddb1bae9fb510b49a295f212f1e6e4
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -81,43 +80,43 @@ Requires:	gstreamer >= %{gst_ver}
 Requires:	orc >= 0.4.24
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
-Obsoletes:	gstreamer-artsd
-Obsoletes:	gstreamer-audio-effects
-Obsoletes:	gstreamer-audiofile
-Obsoletes:	gstreamer-audiosink-esd
-Obsoletes:	gstreamer-avi
-Obsoletes:	gstreamer-cdplayer
-Obsoletes:	gstreamer-colorspace
-Obsoletes:	gstreamer-daala
-Obsoletes:	gstreamer-festival
-Obsoletes:	gstreamer-hal
-Obsoletes:	gstreamer-interfaces
-Obsoletes:	gstreamer-interleave
-Obsoletes:	gstreamer-kio
-Obsoletes:	gstreamer-libdvdnav
-Obsoletes:	gstreamer-libfame
-Obsoletes:	gstreamer-media-info
-Obsoletes:	gstreamer-mikmod
-Obsoletes:	gstreamer-mimic
-Obsoletes:	gstreamer-misc
-Obsoletes:	gstreamer-musicbrainz
-Obsoletes:	gstreamer-mythtv
-Obsoletes:	gstreamer-oneton
-Obsoletes:	gstreamer-play
-Obsoletes:	gstreamer-plugins
-Obsoletes:	gstreamer-qcam
-Obsoletes:	gstreamer-snapshot
-Obsoletes:	gstreamer-swfdec
-Obsoletes:	gstreamer-tcp
-Obsoletes:	gstreamer-tuner
-Obsoletes:	gstreamer-v4l
-Obsoletes:	gstreamer-vbidec
-Obsoletes:	gstreamer-videosink-xv
-Obsoletes:	gstreamer-videotest
-Obsoletes:	gstreamer-xine
-Obsoletes:	gstreamer-xoverlay
-Obsoletes:	gstreamer-yuv4mjpeg
-Obsoletes:	gtk-loaders-gstreamer
+Obsoletes:	gstreamer-artsd < 0.10
+Obsoletes:	gstreamer-audio-effects < 0.10
+Obsoletes:	gstreamer-audiofile < 0.10
+Obsoletes:	gstreamer-audiosink-esd < 1.0
+Obsoletes:	gstreamer-avi < 0.10
+Obsoletes:	gstreamer-cdplayer < 0.10
+Obsoletes:	gstreamer-colorspace < 0.10
+Obsoletes:	gstreamer-daala < 1.16
+Obsoletes:	gstreamer-festival < 0.10
+Obsoletes:	gstreamer-hal < 1.0
+Obsoletes:	gstreamer-interfaces < 0.10
+Obsoletes:	gstreamer-interleave < 0.10
+Obsoletes:	gstreamer-kio < 0.10
+Obsoletes:	gstreamer-libdvdnav < 0.10
+Obsoletes:	gstreamer-libfame < 0.10
+Obsoletes:	gstreamer-media-info < 0.10
+Obsoletes:	gstreamer-mikmod < 0.10
+Obsoletes:	gstreamer-mimic < 1.12
+Obsoletes:	gstreamer-misc < 0.8-1
+Obsoletes:	gstreamer-musicbrainz < 1.0
+Obsoletes:	gstreamer-mythtv < 1.0
+Obsoletes:	gstreamer-oneton < 0.10
+Obsoletes:	gstreamer-play < 0.10
+Obsoletes:	gstreamer-plugins < 0.10
+Obsoletes:	gstreamer-qcam < 0.10
+Obsoletes:	gstreamer-snapshot < 0.10
+Obsoletes:	gstreamer-swfdec < 1.2
+Obsoletes:	gstreamer-tcp < 0.10
+Obsoletes:	gstreamer-tuner < 0.10
+Obsoletes:	gstreamer-v4l < 0.10
+Obsoletes:	gstreamer-vbidec < 0.10
+Obsoletes:	gstreamer-videosink-xv < 0.10
+Obsoletes:	gstreamer-videotest < 0.10
+Obsoletes:	gstreamer-xine < 0.10
+Obsoletes:	gstreamer-xoverlay < 0.10
+Obsoletes:	gstreamer-yuv4mjpeg < 0.10
+Obsoletes:	gtk-loaders-gstreamer < 0.10
 # compositor plugin used to be in -plugins-bad 1.14.x
 Conflicts:	gstreamer-plugins-bad < 1.16
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -148,14 +147,14 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.40.0
 Requires:	gstreamer-devel >= %{gst_ver}
-Obsoletes:	gstreamer-interfaces-devel
-Obsoletes:	gstreamer-media-info-devel
-Obsoletes:	gstreamer-mixer-devel
-Obsoletes:	gstreamer-navigation-devel
-Obsoletes:	gstreamer-play-devel
-Obsoletes:	gstreamer-plugins-devel
-Obsoletes:	gstreamer-tuner-devel
-Obsoletes:	gstreamer-xoverlay-devel
+Obsoletes:	gstreamer-interfaces-devel < 0.10
+Obsoletes:	gstreamer-media-info-devel < 0.10
+Obsoletes:	gstreamer-mixer-devel < 0.10
+Obsoletes:	gstreamer-navigation-devel < 0.10
+Obsoletes:	gstreamer-play-devel < 0.10
+Obsoletes:	gstreamer-plugins-devel < 0.10
+Obsoletes:	gstreamer-tuner-devel < 0.10
+Obsoletes:	gstreamer-xoverlay-devel < 0.10
 # gst/video/gstvideoaggregator.h existed in -plugins-bad 1.14.x
 Conflicts:	gstreamer-plugins-bad-devel < 1.16
 
@@ -170,7 +169,7 @@ Summary:	GStreamer streaming-media framework plugins API documentation
 Summary(pl.UTF-8):	Dokumentacja API wtyczek środowiska obróbki strumieni GStreamer
 Group:		Documentation
 Requires:	gtk-doc-common
-Obsoletes:	gstreamer-plugins-gl-apidocs
+Obsoletes:	gstreamer-plugins-gl-apidocs < 1.0
 BuildArch:	noarch
 
 %description apidocs
@@ -189,9 +188,9 @@ Requires:	libdrm >= 2.4.55
 Requires:	libpng >= 1.0
 Requires:	wayland >= 1.0
 Conflicts:	gstreamer-plugins-bad < 1.14
-Obsoletes:	gstreamer-imagesink-gl
+Obsoletes:	gstreamer-imagesink-gl < 1.0
 Obsoletes:	gstreamer-opengl < 1.14
-Obsoletes:	gstreamer-plugins-gl
+Obsoletes:	gstreamer-plugins-gl < 1.0
 
 %description -n gstreamer-gl-libs
 OpenGL plugins library for GStreamer streaming media framework,
@@ -208,7 +207,7 @@ Group:		Development/Libraries
 Requires:	gstreamer-gl-libs = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Conflicts:	gstreamer-plugins-bad-devel < 1.14
-Obsoletes:	gstreamer-plugins-gl-devel
+Obsoletes:	gstreamer-plugins-gl-devel < 1.0
 
 %description -n gstreamer-gl-devel
 Header files for GStreamer OpenGL library.
@@ -226,8 +225,8 @@ Summary(pl.UTF-8):	Wtyczki GStreamera do obsługi architektury ALSA
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Provides:	gstreamer-audiosink = %{version}
-Obsoletes:	gstreamer-alsa
-Obsoletes:	gstreamer-audiosink-alsaspdif
+Obsoletes:	gstreamer-alsa < 0.10
+Obsoletes:	gstreamer-audiosink-alsaspdif < 0.10.21
 
 %description -n gstreamer-audiosink-alsa
 Input and output plugin for the ALSA soundcard driver architecture.
@@ -241,7 +240,7 @@ Summary:	GStreamer base audio effects plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki efektów dźwiękowych do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	gstreamer-audio-effects
+Obsoletes:	gstreamer-audio-effects < 0.10
 
 %description -n gstreamer-audio-effects-base
 GStreamer base audio effects plugins.
@@ -383,7 +382,6 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 
 %prep
 %setup -q -n %{gstname}-%{version}
-%patch0 -p1
 
 %build
 %{__libtoolize}
