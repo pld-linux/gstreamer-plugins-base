@@ -80,6 +80,7 @@ Requires:	gstreamer >= %{gst_ver}
 Requires:	orc >= 0.4.24
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
+Obsoletes:	gstreamer-SDL < 0.10
 Obsoletes:	gstreamer-artsd < 0.10
 Obsoletes:	gstreamer-audio-effects < 0.10
 Obsoletes:	gstreamer-audiofile < 0.10
@@ -88,6 +89,7 @@ Obsoletes:	gstreamer-avi < 0.10
 Obsoletes:	gstreamer-cdplayer < 0.10
 Obsoletes:	gstreamer-colorspace < 0.10
 Obsoletes:	gstreamer-daala < 1.16
+Obsoletes:	gstreamer-divx < 1.0
 Obsoletes:	gstreamer-festival < 0.10
 Obsoletes:	gstreamer-hal < 1.0
 Obsoletes:	gstreamer-interfaces < 0.10
@@ -105,9 +107,11 @@ Obsoletes:	gstreamer-oneton < 0.10
 Obsoletes:	gstreamer-play < 0.10
 Obsoletes:	gstreamer-plugins < 0.10
 Obsoletes:	gstreamer-qcam < 0.10
+Obsoletes:	gstreamer-sdl < 1.0
 Obsoletes:	gstreamer-snapshot < 0.10
 Obsoletes:	gstreamer-swfdec < 1.2
 Obsoletes:	gstreamer-tcp < 0.10
+Obsoletes:	gstreamer-timidity < 1.0
 Obsoletes:	gstreamer-tuner < 0.10
 Obsoletes:	gstreamer-v4l < 0.10
 Obsoletes:	gstreamer-vbidec < 0.10
@@ -115,6 +119,7 @@ Obsoletes:	gstreamer-videosink-xv < 0.10
 Obsoletes:	gstreamer-videotest < 0.10
 Obsoletes:	gstreamer-xine < 0.10
 Obsoletes:	gstreamer-xoverlay < 0.10
+Obsoletes:	gstreamer-xvid < 1.0
 Obsoletes:	gstreamer-yuv4mjpeg < 0.10
 Obsoletes:	gtk-loaders-gstreamer < 0.10
 # compositor plugin used to be in -plugins-bad 1.14.x
