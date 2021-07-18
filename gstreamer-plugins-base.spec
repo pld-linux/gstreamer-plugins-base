@@ -1,30 +1,28 @@
+# TODO: install_plugins_helper
 #
 # Conditional build:
-%bcond_without	apidocs		# gtk-doc based API documentation (requires opengl library enabled)
+%bcond_without	apidocs		# hotdoc based API documentation (requires opengl library enabled)
 %bcond_without	libvisual	# libvisual plugin
 %bcond_without	opengl		# OpenGL support (gstgl library and opengl plugin)
 %bcond_without	tremor		# ivorbisdec plugin (Tremor integer Ogg Vorbis decoder)
-%bcond_with	v4l1		# Video4Linux 1 plugin (for Linux < 2.6.35 or so)
 
 %define		gstname		gst-plugins-base
 %define		gstmver		1.0
-%define		gst_ver		1.16.3
+%define		gst_ver		1.18.4
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.16.3
+Version:	1.18.4
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	e3ddb1bae9fb510b49a295f212f1e6e4
+# Source0-md5:	523336ed6938b8b1004847cbbd5e31cb
 URL:		https://gstreamer.freedesktop.org/
-BuildRequires:	autoconf >= 2.69
-BuildRequires:	automake >= 1:1.14
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
-BuildRequires:	glib2-devel >= 1:2.40.0
+BuildRequires:	glib2-devel >= 1:2.44.0
 %if %(locale -a | grep -q '^C.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
@@ -32,14 +30,18 @@ BuildRequires:	glibc-misc
 BuildRequires:	gobject-introspection-devel >= 1.31.1
 BuildRequires:	gstreamer-devel >= %{gst_ver}
 BuildRequires:	gtk+3-devel >= 3.10
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.12}
+%{?with_apidocs:BuildRequires:	hotdoc >= 0.11.0}
 BuildRequires:	iso-codes
-BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	libxml2-devel >= 2.0
+BuildRequires:	meson >= 0.48
+BuildRequires:	ninja >= 1.5
 BuildRequires:	orc-devel >= 0.4.24
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python >= 2.1
+BuildRequires:	rpm-build >= 4.6
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xz
 BuildRequires:	zlib-devel
 ##
@@ -50,13 +52,11 @@ BuildRequires:	cdparanoia-III-devel >= 2:10.2
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libtheora-devel >= 1.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
-BuildRequires:	libvorbis-devel >= 1:1.0
+BuildRequires:	libvorbis-devel >= 1:1.3.1
 BuildRequires:	opus-devel >= 0.9.4
 BuildRequires:	pango-devel >= 1:1.22.0
-BuildRequires:	rpmbuild(macros) >= 1.98
 %{?with_tremor:BuildRequires:	tremor-devel}
 BuildRequires:	udev-glib-devel >= 1:143
-BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
 %if %{with opengl}
@@ -69,15 +69,21 @@ BuildRequires:	graphene-devel >= 1.4.0
 BuildRequires:	libdrm-devel >= 2.4.55
 BuildRequires:	libpng-devel >= 1.0
 BuildRequires:	libjpeg-devel
-# wayland-client, wayland-cursor
-BuildRequires:	wayland-devel >= 1.0
-BuildRequires:	wayland-egl-devel
+BuildRequires:	udev-glib-devel >= 1:147
+# wayland-client >= 1.11, wayland-cursor >= 1.0
+BuildRequires:	wayland-devel >= 1.11
+BuildRequires:	wayland-egl-devel >= 1.0
+BuildRequires:	wayland-protocols >= 1.15
 %endif
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.40.0
+Requires:	glib2 >= 1:2.44.0
 Requires:	gstreamer >= %{gst_ver}
 Requires:	orc >= 0.4.24
+%if %{with opengl}
+Requires:	libdrm-devel >= 2.4.55
+Requires:	udev-glib >= 1:147
+%endif
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-SDL < 0.10
@@ -115,6 +121,7 @@ Obsoletes:	gstreamer-timidity < 1.0
 Obsoletes:	gstreamer-tuner < 0.10
 Obsoletes:	gstreamer-v4l < 0.10
 Obsoletes:	gstreamer-vbidec < 0.10
+Obsoletes:	gstreamer-video4linux < 1.0
 Obsoletes:	gstreamer-videosink-xv < 0.10
 Obsoletes:	gstreamer-videotest < 0.10
 Obsoletes:	gstreamer-xine < 0.10
@@ -150,7 +157,7 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.40.0
+Requires:	glib2-devel >= 1:2.44.0
 Requires:	gstreamer-devel >= %{gst_ver}
 Obsoletes:	gstreamer-interfaces-devel < 0.10
 Obsoletes:	gstreamer-media-info-devel < 0.10
@@ -173,7 +180,7 @@ Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer.
 Summary:	GStreamer streaming-media framework plugins API documentation
 Summary(pl.UTF-8):	Dokumentacja API wtyczek środowiska obróbki strumieni GStreamer
 Group:		Documentation
-Requires:	gtk-doc-common
+Requires:	gstreamer-apidocs >= 1.18
 Obsoletes:	gstreamer-plugins-gl-apidocs < 1.0
 BuildArch:	noarch
 
@@ -352,6 +359,7 @@ Summary:	GStreamer plugin for encoding and decoding Ogg Vorbis audio files
 Summary(pl.UTF-8):	Wtyczki do GStreamera kodujące i dekodujące pliki dźwiękowe Ogg Vorbis
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libvorbis >= 1:1.3.1
 
 %description -n gstreamer-vorbis
 Plugins for creating and playing Ogg Vorbis audio files.
@@ -389,37 +397,33 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %setup -q -n %{gstname}-%{version}
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4 -I common/m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--disable-examples \
-	%{!?with_opengl:--disable-egl} \
-	%{!?with_tremor:--disable-ivorbis} \
-	%{!?with_libvisual:--disable-libvisual} \
-	%{!?with_opengl:--disable-opengl} \
-	--disable-silent-rules \
-	--disable-static \
-	--enable-experimental \
-	--enable-gtk-doc%{!?with_apidocs:=no} \
-	--enable-orc \
-	--with-html-dir=%{_gtkdocdir}
+%meson build \
+	--default-library=shared \
+	%{!?with_apidocs:-Ddoc=disabled} \
+	-Dexamples=disabled \
+	%{!?with_opengl:-Dgl=disabled} \
+	%{!?with_libvisual:-Dlibvisual=disabled} \
+	%{!?with_tremor:-Dtremor=disabled}
 
-LC_ALL=C.UTF-8 \
-%{__make}
+%ninja_build -C build
+
+%if %{with apidocs}
+cd build/docs
+for config in *-doc.json ; do
+	LC_ALL=C.UTF-8 hotdoc run --conf-file "$config"
+done
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
-# We don't need plugins' *.la files
-%{__rm} $RPM_BUILD_ROOT%{gstlibdir}/*.la
-# obsoleted by pkg-config
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgst*.la
+%if %{with apidocs}
+install -d $RPM_BUILD_ROOT%{_docdir}/gstreamer-%{gstmver}
+cp -pr build/docs/*-doc $RPM_BUILD_ROOT%{_docdir}/gstreamer-%{gstmver}
+%endif
+
 
 %find_lang %{gstname}-%{gstmver}
 
@@ -543,8 +547,53 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/gst-plugins-base-libs-%{gstmver}
-%{_gtkdocdir}/gst-plugins-base-plugins-%{gstmver}
+%{_docdir}/gstreamer-%{gstmver}/adder-doc
+%{_docdir}/gstreamer-%{gstmver}/allocators-doc
+%{_docdir}/gstreamer-%{gstmver}/alsa-doc
+%{_docdir}/gstreamer-%{gstmver}/app-doc
+%{_docdir}/gstreamer-%{gstmver}/applib-doc
+%{_docdir}/gstreamer-%{gstmver}/audio-doc
+%{_docdir}/gstreamer-%{gstmver}/audioconvert-doc
+%{_docdir}/gstreamer-%{gstmver}/audiomixer-doc
+%{_docdir}/gstreamer-%{gstmver}/audiorate-doc
+%{_docdir}/gstreamer-%{gstmver}/audioresample-doc
+%{_docdir}/gstreamer-%{gstmver}/audiotestsrc-doc
+%{_docdir}/gstreamer-%{gstmver}/cdparanoia-doc
+%{_docdir}/gstreamer-%{gstmver}/compositor-doc
+%{_docdir}/gstreamer-%{gstmver}/encoding-doc
+%{_docdir}/gstreamer-%{gstmver}/gio-doc
+%{_docdir}/gstreamer-%{gstmver}/gl-doc
+%{_docdir}/gstreamer-%{gstmver}/gl-egl-doc
+%{_docdir}/gstreamer-%{gstmver}/gl-wayland-doc
+%{_docdir}/gstreamer-%{gstmver}/gl-x11-doc
+%{_docdir}/gstreamer-%{gstmver}/libvisual-doc
+%{_docdir}/gstreamer-%{gstmver}/ogg-doc
+%{_docdir}/gstreamer-%{gstmver}/opengl-doc
+%{_docdir}/gstreamer-%{gstmver}/opus-doc
+%{_docdir}/gstreamer-%{gstmver}/overlaycomposition-doc
+%{_docdir}/gstreamer-%{gstmver}/pango-doc
+%{_docdir}/gstreamer-%{gstmver}/pbtypes-doc
+%{_docdir}/gstreamer-%{gstmver}/pbutils-doc
+%{_docdir}/gstreamer-%{gstmver}/playback-doc
+%{_docdir}/gstreamer-%{gstmver}/rawparse-doc
+%{_docdir}/gstreamer-%{gstmver}/riff-doc
+%{_docdir}/gstreamer-%{gstmver}/rtplib-doc
+%{_docdir}/gstreamer-%{gstmver}/rtsplib-doc
+%{_docdir}/gstreamer-%{gstmver}/sdp-doc
+%{_docdir}/gstreamer-%{gstmver}/subparse-doc
+%{_docdir}/gstreamer-%{gstmver}/tag-doc
+%{_docdir}/gstreamer-%{gstmver}/tcp-doc
+%{_docdir}/gstreamer-%{gstmver}/theora-doc
+%{_docdir}/gstreamer-%{gstmver}/typefindfunctions-doc
+%{_docdir}/gstreamer-%{gstmver}/video-doc
+%{_docdir}/gstreamer-%{gstmver}/videoconvert-doc
+%{_docdir}/gstreamer-%{gstmver}/videorate-doc
+%{_docdir}/gstreamer-%{gstmver}/videoscale-doc
+%{_docdir}/gstreamer-%{gstmver}/videotestsrc-doc
+%{_docdir}/gstreamer-%{gstmver}/volume-doc
+%{_docdir}/gstreamer-%{gstmver}/vorbis-doc
+%{_docdir}/gstreamer-%{gstmver}/ximagesink-doc
+%{_docdir}/gstreamer-%{gstmver}/xvimagesink-doc
 %endif
 
 %if %{with opengl}
@@ -553,6 +602,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgstgl-%{gstmver}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgstgl-%{gstmver}.so.0
 %{_libdir}/girepository-1.0/GstGL-%{gstmver}.typelib
+%{_libdir}/girepository-1.0/GstGLEGL-%{gstmver}.typelib
+%{_libdir}/girepository-1.0/GstGLWayland-%{gstmver}.typelib
+%{_libdir}/girepository-1.0/GstGLX11-%{gstmver}.typelib
 # plugin itself
 %attr(755,root,root) %{gstlibdir}/libgstopengl.so
 
@@ -565,7 +617,14 @@ rm -rf $RPM_BUILD_ROOT
 %{gstlibdir}/include/gst/gl
 %{gstincludedir}/gst/gl
 %{_datadir}/gir-1.0/GstGL-%{gstmver}.gir
+%{_datadir}/gir-1.0/GstGLEGL-%{gstmver}.gir
+%{_datadir}/gir-1.0/GstGLWayland-%{gstmver}.gir
+%{_datadir}/gir-1.0/GstGLX11-%{gstmver}.gir
 %{_pkgconfigdir}/gstreamer-gl-%{gstmver}.pc
+%{_pkgconfigdir}/gstreamer-gl-egl-%{gstmver}.pc
+%{_pkgconfigdir}/gstreamer-gl-prototypes-%{gstmver}.pc
+%{_pkgconfigdir}/gstreamer-gl-wayland-%{gstmver}.pc
+%{_pkgconfigdir}/gstreamer-gl-x11-%{gstmver}.pc
 %endif
 
 ##
@@ -609,12 +668,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gstreamer-theora
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gstlibdir}/libgsttheora.so
-
-%if %{with v4l1}
-%files -n gstreamer-video4linux
-%defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstvideo4linux.so
-%endif
 
 %files -n gstreamer-vorbis
 %defattr(644,root,root,755)
