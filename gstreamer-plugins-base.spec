@@ -22,7 +22,7 @@ Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{ver
 URL:		https://gstreamer.freedesktop.org/
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
-BuildRequires:	glib2-devel >= 1:2.44.0
+BuildRequires:	glib2-devel >= 1:2.56.0
 %if %(locale -a | grep -q '^C.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
@@ -33,7 +33,7 @@ BuildRequires:	gtk+3-devel >= 3.10
 %{?with_apidocs:BuildRequires:	hotdoc >= 0.11.0}
 BuildRequires:	iso-codes
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	meson >= 0.48
+BuildRequires:	meson >= 0.59
 BuildRequires:	ninja >= 1.5
 BuildRequires:	orc-devel >= 0.4.24
 BuildRequires:	pkgconfig >= 1:0.9.0
@@ -77,7 +77,7 @@ BuildRequires:	wayland-protocols >= 1.15
 %endif
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.44.0
+Requires:	glib2 >= 1:2.56.0
 Requires:	gstreamer >= %{gst_ver}
 Requires:	orc >= 0.4.24
 %if %{with opengl}
@@ -157,7 +157,7 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.44.0
+Requires:	glib2-devel >= 1:2.56.0
 Requires:	gstreamer-devel >= %{gst_ver}
 Obsoletes:	gstreamer-interfaces-devel < 0.10
 Obsoletes:	gstreamer-media-info-devel < 0.10
