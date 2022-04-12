@@ -57,12 +57,14 @@ BuildRequires:	opus-devel >= 0.9.4
 BuildRequires:	pango-devel >= 1:1.22.0
 %{?with_tremor:BuildRequires:	tremor-devel}
 BuildRequires:	udev-glib-devel >= 1:143
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
 %if %{with opengl}
 BuildRequires:	EGL-devel
 BuildRequires:	Mesa-libgbm-devel
 BuildRequires:	OpenGL-GLX-devel
+BuildRequires:	OpenGLESv2-devel
 # examples only: clutter clutter-glx clutter-x11
 #BuildRequires:	SDL-devel >= 1.2.0 clutter-devel >= 1.8 xorg-lib-libXcomposite-devel
 BuildRequires:	graphene-devel >= 1.4.0
@@ -80,10 +82,6 @@ BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.56.0
 Requires:	gstreamer >= %{gst_ver}
 Requires:	orc >= 0.4.24
-%if %{with opengl}
-Requires:	libdrm >= 2.4.55
-Requires:	udev-glib >= 1:147
-%endif
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-SDL < 0.10
@@ -159,6 +157,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.56.0
 Requires:	gstreamer-devel >= %{gst_ver}
+Requires:	orc-devel >= 0.4.24
 Obsoletes:	gstreamer-interfaces-devel < 0.10
 Obsoletes:	gstreamer-media-info-devel < 0.10
 Obsoletes:	gstreamer-mixer-devel < 0.10
@@ -198,7 +197,8 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	graphene >= 1.4.0
 Requires:	libdrm >= 2.4.55
 Requires:	libpng >= 1.0
-Requires:	wayland >= 1.0
+Requires:	udev-glib >= 1:147
+Requires:	wayland >= 1.11
 Conflicts:	gstreamer-plugins-bad < 1.14
 Obsoletes:	gstreamer-imagesink-gl < 1.0
 Obsoletes:	gstreamer-opengl < 1.14
@@ -216,8 +216,16 @@ GStreamer wraz z właściwą wtyczką OpenGL.
 Summary:	Header files for GStreamer OpenGL library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GStreamera OpenGL
 Group:		Development/Libraries
-Requires:	gstreamer-gl-libs = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
+Requires:	EGL-devel
+Requires:	Mesa-libgbm-devel
+Requires:	OpenGL-GLX-devel
+Requires:	OpenGLESv2-devel
+Requires:	gstreamer-gl-libs = %{version}-%{release}
+Requires:	udev-glib-devel >= 1:147
+Requires:	wayland-devel >= 1.11
+Requires:	wayland-egl-devel >= 1.0
+Requires:	xorg-lib-libX11-devel
 Conflicts:	gstreamer-plugins-bad-devel < 1.14
 Obsoletes:	gstreamer-plugins-gl-devel < 1.0
 
