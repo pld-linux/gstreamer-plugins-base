@@ -37,7 +37,7 @@ BuildRequires:	meson >= 0.62
 BuildRequires:	ninja >= 1.5
 BuildRequires:	orc-devel >= 0.4.24
 BuildRequires:	pkgconfig >= 1:0.9.0
-BuildRequires:	python >= 2.1
+BuildRequires:	python3
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
