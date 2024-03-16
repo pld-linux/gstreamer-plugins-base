@@ -8,21 +8,21 @@
 
 %define		gstname		gst-plugins-base
 %define		gstmver		1.0
-%define		gst_ver		1.22.0
+%define		gst_ver		1.24.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.22.6
+Version:	1.24.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	b8ac886fff5c89eff5d7873f259c2e37
+# Source0-md5:	8627f6730c1b483b8f48544b766c6466
 URL:		https://gstreamer.freedesktop.org/
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
-BuildRequires:	glib2-devel >= 1:2.62.0
+BuildRequires:	glib2-devel >= 1:2.64.0
 %if %(locale -a | grep -q '^C.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
@@ -33,9 +33,9 @@ BuildRequires:	gtk+3-devel >= 3.10
 %{?with_apidocs:BuildRequires:	hotdoc >= 0.11.0}
 BuildRequires:	iso-codes
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	meson >= 0.62
+BuildRequires:	meson >= 1.1
 BuildRequires:	ninja >= 1.5
-BuildRequires:	orc-devel >= 0.4.24
+BuildRequires:	orc-devel >= 0.4.38
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python3 >= 1:3.2
 BuildRequires:	rpm-build >= 4.6
@@ -68,7 +68,7 @@ BuildRequires:	OpenGLESv2-devel
 # examples only: clutter clutter-glx clutter-x11
 #BuildRequires:	SDL-devel >= 1.2.0 clutter-devel >= 1.8 xorg-lib-libXcomposite-devel
 BuildRequires:	graphene-devel >= 1.4.0
-BuildRequires:	libdrm-devel >= 2.4.55
+BuildRequires:	libdrm-devel >= 2.4.98
 BuildRequires:	libpng-devel >= 1.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	udev-glib-devel >= 1:147
@@ -79,9 +79,9 @@ BuildRequires:	wayland-protocols >= 1.15
 %endif
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.62.0
+Requires:	glib2 >= 1:2.64.0
 Requires:	gstreamer >= %{gst_ver}
-Requires:	orc >= 0.4.24
+Requires:	orc >= 0.4.38
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-SDL < 0.10
@@ -155,9 +155,9 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.62.0
+Requires:	glib2-devel >= 1:2.64.0
 Requires:	gstreamer-devel >= %{gst_ver}
-Requires:	orc-devel >= 0.4.24
+Requires:	orc-devel >= 0.4.38
 Obsoletes:	gstreamer-interfaces-devel < 0.10
 Obsoletes:	gstreamer-media-info-devel < 0.10
 Obsoletes:	gstreamer-mixer-devel < 0.10
@@ -195,7 +195,7 @@ Summary(pl.UTF-8):	Biblioteka wtyczek OpenGL dla GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	graphene >= 1.4.0
-Requires:	libdrm >= 2.4.55
+Requires:	libdrm >= 2.4.98
 Requires:	libpng >= 1.0
 Requires:	udev-glib >= 1:147
 Requires:	wayland >= 1.11
@@ -417,7 +417,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 
 %if %{with apidocs}
 cd build/docs
-for config in *-doc.json ; do
+for config in *-doc.json plugin-*.json ; do
 	LC_ALL=C.UTF-8 hotdoc run --conf-file "$config"
 done
 %endif
@@ -429,7 +429,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with apidocs}
 install -d $RPM_BUILD_ROOT%{_docdir}/gstreamer-%{gstmver}
-cp -pr build/docs/*-doc $RPM_BUILD_ROOT%{_docdir}/gstreamer-%{gstmver}
+for d in build/docs/*-doc build/docs/plugin-* ; do
+	[ ! -d "$d" ] || cp -pr "$d" $RPM_BUILD_ROOT%{_docdir}/gstreamer-%{gstmver}
+done
 %endif
 
 %find_lang %{gstname}-%{gstmver}
@@ -480,7 +482,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudiomixer.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
+%attr(755,root,root) %{gstlibdir}/libgstbasedebug.so
 %attr(755,root,root) %{gstlibdir}/libgstcompositor.so
+%attr(755,root,root) %{gstlibdir}/libgstdsd.so
 %attr(755,root,root) %{gstlibdir}/libgstencoding.so
 %attr(755,root,root) %{gstlibdir}/libgstgio.so
 %attr(755,root,root) %{gstlibdir}/libgstoverlaycomposition.so
@@ -553,52 +557,54 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_docdir}/gstreamer-%{gstmver}/adder-doc
 %{_docdir}/gstreamer-%{gstmver}/allocators-doc
-%{_docdir}/gstreamer-%{gstmver}/alsa-doc
-%{_docdir}/gstreamer-%{gstmver}/app-doc
 %{_docdir}/gstreamer-%{gstmver}/applib-doc
 %{_docdir}/gstreamer-%{gstmver}/audio-doc
-%{_docdir}/gstreamer-%{gstmver}/audioconvert-doc
-%{_docdir}/gstreamer-%{gstmver}/audiomixer-doc
-%{_docdir}/gstreamer-%{gstmver}/audiorate-doc
-%{_docdir}/gstreamer-%{gstmver}/audioresample-doc
-%{_docdir}/gstreamer-%{gstmver}/audiotestsrc-doc
-%{_docdir}/gstreamer-%{gstmver}/cdparanoia-doc
-%{_docdir}/gstreamer-%{gstmver}/compositor-doc
-%{_docdir}/gstreamer-%{gstmver}/encoding-doc
-%{_docdir}/gstreamer-%{gstmver}/gio-doc
 %{_docdir}/gstreamer-%{gstmver}/gl-doc
 %{_docdir}/gstreamer-%{gstmver}/gl-egl-doc
 %{_docdir}/gstreamer-%{gstmver}/gl-wayland-doc
 %{_docdir}/gstreamer-%{gstmver}/gl-x11-doc
-%{_docdir}/gstreamer-%{gstmver}/libvisual-doc
-%{_docdir}/gstreamer-%{gstmver}/ogg-doc
-%{_docdir}/gstreamer-%{gstmver}/opengl-doc
-%{_docdir}/gstreamer-%{gstmver}/opus-doc
-%{_docdir}/gstreamer-%{gstmver}/overlaycomposition-doc
-%{_docdir}/gstreamer-%{gstmver}/pango-doc
-%{_docdir}/gstreamer-%{gstmver}/pbtypes-doc
 %{_docdir}/gstreamer-%{gstmver}/pbutils-doc
-%{_docdir}/gstreamer-%{gstmver}/playback-doc
-%{_docdir}/gstreamer-%{gstmver}/rawparse-doc
 %{_docdir}/gstreamer-%{gstmver}/riff-doc
 %{_docdir}/gstreamer-%{gstmver}/rtplib-doc
 %{_docdir}/gstreamer-%{gstmver}/rtsplib-doc
 %{_docdir}/gstreamer-%{gstmver}/sdp-doc
-%{_docdir}/gstreamer-%{gstmver}/subparse-doc
 %{_docdir}/gstreamer-%{gstmver}/tag-doc
-%{_docdir}/gstreamer-%{gstmver}/tcp-doc
-%{_docdir}/gstreamer-%{gstmver}/theora-doc
-%{_docdir}/gstreamer-%{gstmver}/typefindfunctions-doc
 %{_docdir}/gstreamer-%{gstmver}/video-doc
-%{_docdir}/gstreamer-%{gstmver}/videoconvertscale-doc
-%{_docdir}/gstreamer-%{gstmver}/videorate-doc
-%{_docdir}/gstreamer-%{gstmver}/videotestsrc-doc
-%{_docdir}/gstreamer-%{gstmver}/volume-doc
-%{_docdir}/gstreamer-%{gstmver}/vorbis-doc
-%{_docdir}/gstreamer-%{gstmver}/ximagesink-doc
-%{_docdir}/gstreamer-%{gstmver}/xvimagesink-doc
+%{_docdir}/gstreamer-%{gstmver}/plugin-adder
+%{_docdir}/gstreamer-%{gstmver}/plugin-alsa
+%{_docdir}/gstreamer-%{gstmver}/plugin-app
+%{_docdir}/gstreamer-%{gstmver}/plugin-audioconvert
+%{_docdir}/gstreamer-%{gstmver}/plugin-audiomixer
+%{_docdir}/gstreamer-%{gstmver}/plugin-audiorate
+%{_docdir}/gstreamer-%{gstmver}/plugin-audioresample
+%{_docdir}/gstreamer-%{gstmver}/plugin-audiotestsrc
+%{_docdir}/gstreamer-%{gstmver}/plugin-basedebug
+%{_docdir}/gstreamer-%{gstmver}/plugin-cdparanoia
+%{_docdir}/gstreamer-%{gstmver}/plugin-compositor
+%{_docdir}/gstreamer-%{gstmver}/plugin-dsd
+%{_docdir}/gstreamer-%{gstmver}/plugin-encoding
+%{_docdir}/gstreamer-%{gstmver}/plugin-gio
+%{_docdir}/gstreamer-%{gstmver}/plugin-libvisual
+%{_docdir}/gstreamer-%{gstmver}/plugin-ogg
+%{_docdir}/gstreamer-%{gstmver}/plugin-opengl
+%{_docdir}/gstreamer-%{gstmver}/plugin-opus
+%{_docdir}/gstreamer-%{gstmver}/plugin-overlaycomposition
+%{_docdir}/gstreamer-%{gstmver}/plugin-pango
+%{_docdir}/gstreamer-%{gstmver}/plugin-pbtypes
+%{_docdir}/gstreamer-%{gstmver}/plugin-playback
+%{_docdir}/gstreamer-%{gstmver}/plugin-rawparse
+%{_docdir}/gstreamer-%{gstmver}/plugin-subparse
+%{_docdir}/gstreamer-%{gstmver}/plugin-tcp
+%{_docdir}/gstreamer-%{gstmver}/plugin-theora
+%{_docdir}/gstreamer-%{gstmver}/plugin-typefindfunctions
+%{_docdir}/gstreamer-%{gstmver}/plugin-videoconvertscale
+%{_docdir}/gstreamer-%{gstmver}/plugin-videorate
+%{_docdir}/gstreamer-%{gstmver}/plugin-videotestsrc
+%{_docdir}/gstreamer-%{gstmver}/plugin-volume
+%{_docdir}/gstreamer-%{gstmver}/plugin-vorbis
+%{_docdir}/gstreamer-%{gstmver}/plugin-ximagesink
+%{_docdir}/gstreamer-%{gstmver}/plugin-xvimagesink
 %endif
 
 %if %{with opengl}
