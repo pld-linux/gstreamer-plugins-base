@@ -98,6 +98,7 @@ Obsoletes:	gstreamer-festival < 0.10
 Obsoletes:	gstreamer-hal < 1.0
 Obsoletes:	gstreamer-interfaces < 0.10
 Obsoletes:	gstreamer-interleave < 0.10
+Obsoletes:	gstreamer-kate < 1.24
 Obsoletes:	gstreamer-kio < 0.10
 Obsoletes:	gstreamer-libdvdnav < 0.10
 Obsoletes:	gstreamer-libfame < 0.10
