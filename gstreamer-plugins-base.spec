@@ -13,12 +13,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.24.3
+Version:	1.24.4
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	61e077e4ca35e306d45fef24337db2ca
+# Source0-md5:	1a0b9d23878febc0d7559fbee7aedb4a
 URL:		https://gstreamer.freedesktop.org/
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
