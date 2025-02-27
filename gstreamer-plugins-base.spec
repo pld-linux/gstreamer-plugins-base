@@ -13,12 +13,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.24.8
+Version:	1.24.12
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	68b29aaae4de05e0c484ce7714ef5d0c
+# Source0-md5:	af0d85f4dda9f750086516d834a17a8c
 URL:		https://gstreamer.freedesktop.org/
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
@@ -39,7 +39,7 @@ BuildRequires:	orc-devel >= 0.4.38
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python3 >= 1:3.2
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xz
@@ -406,15 +406,16 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %setup -q -n %{gstname}-%{version}
 
 %build
-%meson build \
+%meson \
 	--default-library=shared \
 	%{!?with_apidocs:-Ddoc=disabled} \
 	-Dexamples=disabled \
 	%{!?with_opengl:-Dgl=disabled} \
 	%{!?with_libvisual:-Dlibvisual=disabled} \
+	-Dtests=disabled \
 	%{!?with_tremor:-Dtremor=disabled}
 
-%ninja_build -C build
+%meson_build
 
 %if %{with apidocs}
 cd build/docs
@@ -426,7 +427,7 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %if %{with apidocs}
 install -d $RPM_BUILD_ROOT%{_docdir}/gstreamer-%{gstmver}
