@@ -8,17 +8,17 @@
 
 %define		gstname		gst-plugins-base
 %define		gstmver		1.0
-%define		gst_ver		1.24.0
+%define		gst_ver		1.26.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.24.12
+Version:	1.26.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	af0d85f4dda9f750086516d834a17a8c
+# Source0-md5:	6a05a446e974ea4707c5a596424a5312
 URL:		https://gstreamer.freedesktop.org/
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
@@ -33,9 +33,9 @@ BuildRequires:	gtk+3-devel >= 3.10
 %{?with_apidocs:BuildRequires:	hotdoc >= 0.11.0}
 BuildRequires:	iso-codes
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	meson >= 1.1
+BuildRequires:	meson >= 1.4
 BuildRequires:	ninja >= 1.5
-BuildRequires:	orc-devel >= 0.4.38
+BuildRequires:	orc-devel >= 0.4.41
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python3 >= 1:3.2
 BuildRequires:	rpm-build >= 4.6
@@ -81,7 +81,7 @@ BuildRequires:	wayland-protocols >= 1.15
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
 Requires:	glib2 >= 1:2.64.0
 Requires:	gstreamer >= %{gst_ver}
-Requires:	orc >= 0.4.38
+Requires:	orc >= 0.4.41
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-SDL < 0.10
@@ -158,7 +158,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.64.0
 Requires:	gstreamer-devel >= %{gst_ver}
-Requires:	orc-devel >= 0.4.38
+Requires:	orc-devel >= 0.4.41
 Obsoletes:	gstreamer-interfaces-devel < 0.10
 Obsoletes:	gstreamer-media-info-devel < 0.10
 Obsoletes:	gstreamer-mixer-devel < 0.10
@@ -408,16 +408,64 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 %build
 %meson \
 	--default-library=shared \
-	%{!?with_apidocs:-Ddoc=disabled} \
+	-Dadder=enabled \
+	-Dalsa=enabled \
+	-Dapp=enabled \
+	-Daudioconvert=enabled \
+	-Daudiomixer=enabled \
+	-Daudiorate=enabled \
+	-Daudioresample=enabled \
+	-Daudiotestsrc=enabled \
+	-Dcdparanoia=enabled \
+	-Dcompositor=enabled \
+	-Ddebugutils=enabled \
+	-Ddoc=%{__enabled_disabled apidocs} \
+	-Ddrm=enabled \
+	-Ddsd=enabled \
+	-Dencoding=enabled \
 	-Dexamples=disabled \
-	%{!?with_opengl:-Dgl=disabled} \
-	%{!?with_libvisual:-Dlibvisual=disabled} \
+	-Dgio=enabled \
+	-Dgio-typefinder=enabled \
+	-Dgl=%{__enabled_disabled opengl} \
+	-Dgl-graphene=enabled \
+	-Dgl-jpeg=enabled \
+	-Dgl-png=enabled \
+	-Dglib_assert=false \
+	-Dglib_checks=false \
+	-Dglib_debug=disabled \
+	-Dintrospection=enabled \
+	-Diso-codes=enabled \
+	-Dlibvisual=%{__enabled_disabled libvisual} \
+	-Dnls=enabled \
+	-Dogg=enabled \
+	-Dopus=enabled \
+	-Dorc=enabled \
+	-Doverlaycomposition=enabled \
+	-Dpango=enabled \
+	-Dpbtypes=enabled \
+	-Dplayback=enabled \
+	-Dqt5=enabled \
+	-Drawparse=enabled \
+	-Dsubparse=enabled \
 	-Dtests=disabled \
-	%{!?with_tremor:-Dtremor=disabled}
+	-Dtheora=enabled \
+	-Dtools=enabled \
+	-Dtremor=%{__enabled_disabled tremor} \
+	-Dvideoconvertscale=enabled \
+	-Dvideorate=enabled \
+	-Dvideotestsrc=enabled \
+	-Dvolume=enabled \
+	-Dvorbis=enabled \
+	-Dx11=enabled \
+	-Dxi=enabled \
+	-Dxshm=enabled \
+	-Dxvideo=enabled
 
 %meson_build
 
 %if %{with apidocs}
+%meson_build build-libs-hotdoc-configs build-hotdoc-configs
+
 cd build/docs
 for config in *-doc.json plugin-*.json ; do
 	LC_ALL=C.UTF-8 hotdoc run --conf-file "$config"
