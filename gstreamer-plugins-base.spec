@@ -13,12 +13,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.26.0
+Version:	1.26.8
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	6a05a446e974ea4707c5a596424a5312
+# Source0-md5:	fc2107e60d944d9409e4289f9b73e417
 URL:		https://gstreamer.freedesktop.org/
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gettext-tools >= 0.17
@@ -32,6 +32,9 @@ BuildRequires:	gstreamer-devel >= %{gst_ver}
 BuildRequires:	gtk+3-devel >= 3.10
 %{?with_apidocs:BuildRequires:	hotdoc >= 0.11.0}
 BuildRequires:	iso-codes
+%ifnarch %arch_with_atomics64
+BuildRequires:	libatomic-devel
+%endif
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	meson >= 1.4
 BuildRequires:	ninja >= 1.5
