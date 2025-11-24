@@ -353,19 +353,6 @@ GStreamer Ogg Theora plugin.
 %description -n gstreamer-theora -l pl.UTF-8
 Wtyczka Ogg Theora do GStreamera.
 
-%package -n gstreamer-video4linux
-Summary:	GStreamer plugin for Video 4 Linux source
-Summary(pl.UTF-8):	Wtyczka GStreamera dla źródła Video 4 Linux
-Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	udev-glib >= 1:143
-
-%description -n gstreamer-video4linux
-GStreamer plugin for Video 4 Linux source.
-
-%description -n gstreamer-video4linux -l pl.UTF-8
-Wtyczka GStreamera dla źródła Video 4 Linux.
-
 %package -n gstreamer-vorbis
 Summary:	GStreamer plugin for encoding and decoding Ogg Vorbis audio files
 Summary(pl.UTF-8):	Wtyczki do GStreamera kodujące i dekodujące pliki dźwiękowe Ogg Vorbis
