@@ -8,21 +8,22 @@
 
 %define		gstname		gst-plugins-base
 %define		gstmver		1.0
-%define		gst_ver		1.26.0
+%define		gst_ver		1.28.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.26.8
+Version:	1.28.3
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	fc2107e60d944d9409e4289f9b73e417
+# Source0-md5:	0238ce29eb0b3b3a1b84115f96a121b0
 URL:		https://gstreamer.freedesktop.org/
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
+BuildRequires:	gcc >= 6:4.7
 BuildRequires:	gettext-tools >= 0.17
-BuildRequires:	glib2-devel >= 1:2.64.0
+BuildRequires:	glib2-devel >= 1:2.67.4
 %if %(locale -a | grep -q '^C.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
@@ -35,6 +36,7 @@ BuildRequires:	iso-codes
 %ifnarch %arch_with_atomics64
 BuildRequires:	libatomic-devel
 %endif
+BuildRequires:	libstdc++-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	meson >= 1.4
 BuildRequires:	ninja >= 1.5
@@ -56,7 +58,7 @@ BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libtheora-devel >= 1.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
 BuildRequires:	libvorbis-devel >= 1:1.3.1
-BuildRequires:	opus-devel >= 0.9.4
+BuildRequires:	opus-devel >= 1.1
 BuildRequires:	pango-devel >= 1:1.22.0
 %{?with_tremor:BuildRequires:	tremor-devel}
 BuildRequires:	udev-glib-devel >= 1:143
@@ -82,7 +84,7 @@ BuildRequires:	wayland-protocols >= 1.15
 %endif
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.64.0
+Requires:	glib2 >= 1:2.67.4
 Requires:	gstreamer >= %{gst_ver}
 Requires:	orc >= 0.4.41
 Suggests:	iso-codes
@@ -159,7 +161,7 @@ Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.64.0
+Requires:	glib2-devel >= 1:2.67.4
 Requires:	gstreamer-devel >= %{gst_ver}
 Requires:	orc-devel >= 0.4.41
 Obsoletes:	gstreamer-interfaces-devel < 0.10
@@ -317,7 +319,7 @@ Summary:	GStreamer OPUS plugins
 Summary(pl.UTF-8):	Wtyczki OPUS do GStreamera
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	opus >= 0.9.4
+Requires:	opus >= 1.1
 
 %description -n gstreamer-opus
 This package contains GStreamer plugins encoding/decoding OPUS codec
@@ -430,6 +432,7 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 	-Dogg=enabled \
 	-Dopus=enabled \
 	-Dorc=enabled \
+	-Dorc-compiler=enabled \
 	-Doverlaycomposition=enabled \
 	-Dpango=enabled \
 	-Dpbtypes=enabled \
@@ -437,10 +440,12 @@ Wtyczka wyjścia obrazu Xvideo dla GStreamera.
 	-Dqt5=enabled \
 	-Drawparse=enabled \
 	-Dsubparse=enabled \
+	-Dtcp=enabled \
 	-Dtests=disabled \
 	-Dtheora=enabled \
 	-Dtools=enabled \
 	-Dtremor=%{__enabled_disabled tremor} \
+	-Dtypefind=enabled \
 	-Dvideoconvertscale=enabled \
 	-Dvideorate=enabled \
 	-Dvideotestsrc=enabled \
@@ -487,56 +492,56 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{gstname}-%{gstmver}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README.md RELEASE
+%doc ChangeLog MAINTAINERS README.md RELEASE
 %attr(755,root,root) %{_bindir}/gst-device-monitor-%{gstmver}
 %attr(755,root,root) %{_bindir}/gst-discoverer-%{gstmver}
 %attr(755,root,root) %{_bindir}/gst-play-%{gstmver}
-%attr(755,root,root) %{_libdir}/libgstallocators-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstallocators-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstapp-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstapp-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstaudio-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstaudio-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstfft-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstfft-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstpbutils-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstpbutils-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstriff-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstriff-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstrtp-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstrtp-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstrtsp-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstrtsp-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstsdp-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstsdp-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgsttag-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgsttag-%{gstmver}.so.0
-%attr(755,root,root) %{_libdir}/libgstvideo-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstvideo-%{gstmver}.so.0
+%{_libdir}/libgstallocators-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstallocators-%{gstmver}.so.0
+%{_libdir}/libgstapp-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstapp-%{gstmver}.so.0
+%{_libdir}/libgstaudio-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstaudio-%{gstmver}.so.0
+%{_libdir}/libgstfft-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstfft-%{gstmver}.so.0
+%{_libdir}/libgstpbutils-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstpbutils-%{gstmver}.so.0
+%{_libdir}/libgstriff-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstriff-%{gstmver}.so.0
+%{_libdir}/libgstrtp-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstrtp-%{gstmver}.so.0
+%{_libdir}/libgstrtsp-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstrtsp-%{gstmver}.so.0
+%{_libdir}/libgstsdp-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstsdp-%{gstmver}.so.0
+%{_libdir}/libgsttag-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgsttag-%{gstmver}.so.0
+%{_libdir}/libgstvideo-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstvideo-%{gstmver}.so.0
 %{_mandir}/man1/gst-device-monitor-%{gstmver}.1*
 %{_mandir}/man1/gst-discoverer-%{gstmver}.1*
 %{_mandir}/man1/gst-play-%{gstmver}.1*
 # plugins with no external dependencies
-%attr(755,root,root) %{gstlibdir}/libgstapp.so
-%attr(755,root,root) %{gstlibdir}/libgstaudioconvert.so
-%attr(755,root,root) %{gstlibdir}/libgstaudiomixer.so
-%attr(755,root,root) %{gstlibdir}/libgstaudiorate.so
-%attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
-%attr(755,root,root) %{gstlibdir}/libgstbasedebug.so
-%attr(755,root,root) %{gstlibdir}/libgstcompositor.so
-%attr(755,root,root) %{gstlibdir}/libgstdsd.so
-%attr(755,root,root) %{gstlibdir}/libgstencoding.so
-%attr(755,root,root) %{gstlibdir}/libgstgio.so
-%attr(755,root,root) %{gstlibdir}/libgstoverlaycomposition.so
-%attr(755,root,root) %{gstlibdir}/libgstpbtypes.so
-%attr(755,root,root) %{gstlibdir}/libgstplayback.so
-%attr(755,root,root) %{gstlibdir}/libgstrawparse.so
-%attr(755,root,root) %{gstlibdir}/libgstsubparse.so
-%attr(755,root,root) %{gstlibdir}/libgsttcp.so
-%attr(755,root,root) %{gstlibdir}/libgsttypefindfunctions.so
-%attr(755,root,root) %{gstlibdir}/libgstvideoconvertscale.so
-%attr(755,root,root) %{gstlibdir}/libgstvideorate.so
-%attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
+%{gstlibdir}/libgstapp.so
+%{gstlibdir}/libgstaudioconvert.so
+%{gstlibdir}/libgstaudiomixer.so
+%{gstlibdir}/libgstaudiorate.so
+%{gstlibdir}/libgstaudiotestsrc.so
+%{gstlibdir}/libgstbasedebug.so
+%{gstlibdir}/libgstcompositor.so
+%{gstlibdir}/libgstdsd.so
+%{gstlibdir}/libgstencoding.so
+%{gstlibdir}/libgstgio.so
+%{gstlibdir}/libgstoverlaycomposition.so
+%{gstlibdir}/libgstpbtypes.so
+%{gstlibdir}/libgstplayback.so
+%{gstlibdir}/libgstrawparse.so
+%{gstlibdir}/libgstsubparse.so
+%{gstlibdir}/libgsttcp.so
+%{gstlibdir}/libgsttypefindfunctions.so
+%{gstlibdir}/libgstvideoconvertscale.so
+%{gstlibdir}/libgstvideorate.so
+%{gstlibdir}/libgstvideotestsrc.so
 %{_libdir}/girepository-1.0/GstAllocators-%{gstmver}.typelib
 %{_libdir}/girepository-1.0/GstApp-%{gstmver}.typelib
 %{_libdir}/girepository-1.0/GstAudio-%{gstmver}.typelib
@@ -550,17 +555,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgstallocators-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstapp-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstaudio-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstfft-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstpbutils-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstriff-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstrtp-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstrtsp-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstsdp-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgsttag-%{gstmver}.so
-%attr(755,root,root) %{_libdir}/libgstvideo-%{gstmver}.so
+%{_libdir}/libgstallocators-%{gstmver}.so
+%{_libdir}/libgstapp-%{gstmver}.so
+%{_libdir}/libgstaudio-%{gstmver}.so
+%{_libdir}/libgstfft-%{gstmver}.so
+%{_libdir}/libgstpbutils-%{gstmver}.so
+%{_libdir}/libgstriff-%{gstmver}.so
+%{_libdir}/libgstrtp-%{gstmver}.so
+%{_libdir}/libgstrtsp-%{gstmver}.so
+%{_libdir}/libgstsdp-%{gstmver}.so
+%{_libdir}/libgsttag-%{gstmver}.so
+%{_libdir}/libgstvideo-%{gstmver}.so
 %{gstincludedir}/gst/allocators
 %{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
@@ -650,8 +655,8 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with opengl}
 %files -n gstreamer-gl-libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgstgl-%{gstmver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgstgl-%{gstmver}.so.0
+%{_libdir}/libgstgl-%{gstmver}.so.*.*.*
+%ghost %{_libdir}/libgstgl-%{gstmver}.so.0
 %{_libdir}/girepository-1.0/GstGL-%{gstmver}.typelib
 %{_libdir}/girepository-1.0/GstGLEGL-%{gstmver}.typelib
 %{_libdir}/girepository-1.0/GstGLWayland-%{gstmver}.typelib
@@ -661,7 +666,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n gstreamer-gl-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgstgl-%{gstmver}.so
+%{_libdir}/libgstgl-%{gstmver}.so
 # currently only gl lib provides header in this location, so package top dirs here
 %dir %{gstlibdir}/include
 %dir %{gstlibdir}/include/gst
@@ -684,51 +689,51 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n gstreamer-audiosink-alsa
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstalsa.so
+%{gstlibdir}/libgstalsa.so
 
 %files -n gstreamer-audio-effects-base
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstadder.so
-%attr(755,root,root) %{gstlibdir}/libgstaudioresample.so
-%attr(755,root,root) %{gstlibdir}/libgstvolume.so
+%{gstlibdir}/libgstadder.so
+%{gstlibdir}/libgstaudioresample.so
+%{gstlibdir}/libgstvolume.so
 
 %files -n gstreamer-cdparanoia
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstcdparanoia.so
+%{gstlibdir}/libgstcdparanoia.so
 
 %if %{with tremor}
 %files -n gstreamer-ivorbisdec
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstivorbisdec.so
+%{gstlibdir}/libgstivorbisdec.so
 %endif
 
 %if %{with libvisual}
 %files -n gstreamer-libvisual
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstlibvisual.so
+%{gstlibdir}/libgstlibvisual.so
 %endif
 
 %files -n gstreamer-opus
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstopus.so
+%{gstlibdir}/libgstopus.so
 
 %files -n gstreamer-pango
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstpango.so
+%{gstlibdir}/libgstpango.so
 
 %files -n gstreamer-theora
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgsttheora.so
+%{gstlibdir}/libgsttheora.so
 
 %files -n gstreamer-vorbis
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstvorbis.so
-%attr(755,root,root) %{gstlibdir}/libgstogg.so
+%{gstlibdir}/libgstvorbis.so
+%{gstlibdir}/libgstogg.so
 
 %files -n gstreamer-imagesink-x
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstximagesink.so
+%{gstlibdir}/libgstximagesink.so
 
 %files -n gstreamer-imagesink-xv
 %defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstxvimagesink.so
+%{gstlibdir}/libgstxvimagesink.so
