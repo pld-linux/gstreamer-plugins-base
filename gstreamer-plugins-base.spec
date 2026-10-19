@@ -13,12 +13,12 @@
 Summary:	GStreamer Streaming-media framework base plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki do środowiska obróbki strumieni GStreamer
 Name:		gstreamer-plugins-base
-Version:	1.28.5
+Version:	1.28.8
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	b6992bf07b4fd18973934c952c33d2ef
+# Source0-md5:	527fbb1904634ad96d7b229cdfa05b65
 URL:		https://gstreamer.freedesktop.org/
 %{?with_apidocs:BuildRequires:	docbook-dtd412-xml}
 BuildRequires:	gcc >= 6:4.7
@@ -33,7 +33,7 @@ BuildRequires:	gstreamer-devel >= %{gst_ver}
 BuildRequires:	gtk+3-devel >= 3.10
 %{?with_apidocs:BuildRequires:	hotdoc >= 0.11.0}
 BuildRequires:	iso-codes
-%ifnarch %arch_with_atomics64
+%ifnarch %{arch_with_atomics64}
 BuildRequires:	libatomic-devel
 %endif
 BuildRequires:	libstdc++-devel
@@ -54,6 +54,7 @@ BuildRequires:	zlib-devel
 ##
 BuildRequires:	alsa-lib-devel >= 1.0.11
 BuildRequires:	cdparanoia-III-devel >= 2:10.2
+BuildRequires:	libgudev-devel >= 147
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libtheora-devel >= 1.1
 %{?with_libvisual:BuildRequires:	libvisual-devel >= 0.4.0}
@@ -61,7 +62,6 @@ BuildRequires:	libvorbis-devel >= 1:1.3.1
 BuildRequires:	opus-devel >= 1.1
 BuildRequires:	pango-devel >= 1:1.22.0
 %{?with_tremor:BuildRequires:	tremor-devel}
-BuildRequires:	udev-glib-devel >= 1:143
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXv-devel
@@ -76,7 +76,6 @@ BuildRequires:	graphene-devel >= 1.4.0
 BuildRequires:	libdrm-devel >= 2.4.98
 BuildRequires:	libpng-devel >= 1.0
 BuildRequires:	libjpeg-devel
-BuildRequires:	udev-glib-devel >= 1:147
 # wayland-client >= 1.11, wayland-cursor >= 1.0
 BuildRequires:	wayland-devel >= 1.11
 BuildRequires:	wayland-egl-devel >= 1.0
@@ -84,9 +83,9 @@ BuildRequires:	wayland-protocols >= 1.15
 %endif
 # old GIR format
 BuildConflicts:	gstreamer-plugins-base-devel < 0.10.30
-Requires:	glib2 >= 1:2.67.4
-Requires:	gstreamer >= %{gst_ver}
-Requires:	orc >= 0.4.41
+Requires:	glib2%{?_isa} >= 1:2.67.4
+Requires:	gstreamer%{?_isa} >= %{gst_ver}
+Requires:	orc%{?_isa} >= 0.4.41
 Suggests:	iso-codes
 # here go all the obsoleted gstreamer plugins
 Obsoletes:	gstreamer-SDL < 0.10
@@ -160,10 +159,10 @@ nowych typów danych lub możliwości obróbki.
 Summary:	Include files for GStreamer streaming-media framework plugins
 Summary(pl.UTF-8):	Pliki nagłówkowe do wtyczek środowiska obróbki strumieni GStreamer
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.67.4
-Requires:	gstreamer-devel >= %{gst_ver}
-Requires:	orc-devel >= 0.4.41
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	glib2-devel%{?_isa} >= 1:2.67.4
+Requires:	gstreamer-devel%{?_isa} >= %{gst_ver}
+Requires:	orc-devel%{?_isa} >= 0.4.41
 Obsoletes:	gstreamer-interfaces-devel < 0.10
 Obsoletes:	gstreamer-media-info-devel < 0.10
 Obsoletes:	gstreamer-mixer-devel < 0.10
@@ -199,12 +198,12 @@ Dokumentacja API wtyczek środowiska obróbki strumieni GStreamer.
 Summary:	GStreamer OpenGL plugins library
 Summary(pl.UTF-8):	Biblioteka wtyczek OpenGL dla GStreamera
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	graphene >= 1.4.0
-Requires:	libdrm >= 2.4.98
-Requires:	libpng >= 1.0
-Requires:	udev-glib >= 1:147
-Requires:	wayland >= 1.11
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	graphene%{?_isa} >= 1.4.0
+Requires:	libdrm%{?_isa} >= 2.4.98
+Requires:	libgudev%{?_isa} >= 147
+Requires:	libpng%{?_isa} >= 1.0
+Requires:	wayland%{?_isa} >= 1.11
 Conflicts:	gstreamer-plugins-bad < 1.14
 Obsoletes:	gstreamer-imagesink-gl < 1.0
 Obsoletes:	gstreamer-opengl < 1.14
@@ -222,16 +221,16 @@ GStreamer wraz z właściwą wtyczką OpenGL.
 Summary:	Header files for GStreamer OpenGL library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki GStreamera OpenGL
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 Requires:	EGL-devel
-Requires:	Mesa-libgbm-devel
+Requires:	Mesa-libgbm-devel%{?_isa}
 Requires:	OpenGL-GLX-devel
 Requires:	OpenGLESv2-devel
-Requires:	gstreamer-gl-libs = %{version}-%{release}
-Requires:	udev-glib-devel >= 1:147
-Requires:	wayland-devel >= 1.11
-Requires:	wayland-egl-devel >= 1.0
-Requires:	xorg-lib-libX11-devel
+Requires:	gstreamer-gl-libs%{?_isa} = %{version}-%{release}
+Requires:	libgudev-devel%{?_isa} >= 147
+Requires:	wayland-devel%{?_isa} >= 1.11
+Requires:	wayland-egl-devel%{?_isa} >= 1.0
+Requires:	xorg-lib-libX11-devel%{?_isa}
 Conflicts:	gstreamer-plugins-bad-devel < 1.14
 Obsoletes:	gstreamer-plugins-gl-devel < 1.0
 
@@ -249,7 +248,7 @@ Pliki nagłówkowe biblioteki GStreamera OpenGL.
 Summary:	GStreamer plugins for the ALSA sound architecture
 Summary(pl.UTF-8):	Wtyczki GStreamera do obsługi architektury ALSA
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Provides:	gstreamer-audiosink = %{version}
 Obsoletes:	gstreamer-alsa < 0.10
 Obsoletes:	gstreamer-audiosink-alsaspdif < 0.10.21
@@ -265,7 +264,7 @@ do GStreamera.
 Summary:	GStreamer base audio effects plugins
 Summary(pl.UTF-8):	Podstawowe wtyczki efektów dźwiękowych do GStreamera
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Obsoletes:	gstreamer-audio-effects < 0.10
 
 %description -n gstreamer-audio-effects-base
@@ -278,7 +277,7 @@ Podstawowe wtyczki efektów dźwiękowych do GStreamera.
 Summary:	GStreamer plugin for CD audio input using CDParanoia IV
 Summary(pl.UTF-8):	Wtyczka do GStreamera odtwarzająca płyty CD-Audio przy użyciu CDParanoia IV
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	cdparanoia-III-libs >= 2:10.2
 
 %description -n gstreamer-cdparanoia
@@ -292,7 +291,7 @@ cdparanoia.
 Summary:	GStreamer plugin for decoding Ogg Vorbis audio files using Tremor
 Summary(pl.UTF-8):	Wtyczka GStreamera dekodująca pliki dźwiękowe Ogg Vorbis (przy użyciu Tremora)
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n gstreamer-ivorbisdec
 Plugin for playing Ogg Vorbis audio files using Tremor.
@@ -305,8 +304,8 @@ Tremora.
 Summary:	GStreamer libvisual plugin
 Summary(pl.UTF-8):	Wtyczka libvisual do GStreamera
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	libvisual >= 0.4.0
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	libvisual%{?_isa} >= 0.4.0
 
 %description -n gstreamer-libvisual
 GStreamer libvisual plugin.
@@ -318,8 +317,8 @@ Wtyczka libvisual do GStreamera.
 Summary:	GStreamer OPUS plugins
 Summary(pl.UTF-8):	Wtyczki OPUS do GStreamera
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	opus >= 1.1
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	opus%{?_isa} >= 1.1
 
 %description -n gstreamer-opus
 This package contains GStreamer plugins encoding/decoding OPUS codec
@@ -333,8 +332,8 @@ OPUS.
 Summary:	GStreamer pango plugins
 Summary(pl.UTF-8):	Wtyczki pango do GStreamera
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	pango >= 1:1.22.0
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	pango%{?_isa} >= 1:1.22.0
 
 %description -n gstreamer-pango
 This package contains textoverlay and timeoverlay GStreamer plugins.
@@ -346,8 +345,8 @@ Ten pakiet zawiera wtyczki textoverlay i timeoverlay do GStreamera.
 Summary:	GStreamer Ogg Theora plugin
 Summary(pl.UTF-8):	Wtyczka Ogg Theora do GStreamera
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	libtheora >= 1.1
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	libtheora%{?_isa} >= 1.1
 
 %description -n gstreamer-theora
 GStreamer Ogg Theora plugin.
@@ -359,8 +358,8 @@ Wtyczka Ogg Theora do GStreamera.
 Summary:	GStreamer plugin for encoding and decoding Ogg Vorbis audio files
 Summary(pl.UTF-8):	Wtyczki do GStreamera kodujące i dekodujące pliki dźwiękowe Ogg Vorbis
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	libvorbis >= 1:1.3.1
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	libvorbis%{?_isa} >= 1:1.3.1
 
 %description -n gstreamer-vorbis
 Plugins for creating and playing Ogg Vorbis audio files.
@@ -372,7 +371,7 @@ Wtyczki do tworzenia i odtwarzania plików dźwiękowych Ogg Vorbis.
 Summary:	GStreamer XFree86/X.org output plugin
 Summary(pl.UTF-8):	Wtyczka wyjścia obrazu XFree86/X.org dla GStreamera
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Provides:	gstreamer-videosink = %{version}
 
 %description -n gstreamer-imagesink-x
@@ -385,7 +384,7 @@ Standardowa wtyczka wyjścia obrazu XFree86/X.org dla GStreamera.
 Summary:	GStreamer Xvideo output plugin
 Summary(pl.UTF-8):	Wtyczka wyjścia obrazu Xvideo dla GStreamera
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Provides:	gstreamer-videosink = %{version}
 
 %description -n gstreamer-imagesink-xv
